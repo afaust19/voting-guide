@@ -20,7 +20,7 @@ public class User {
     private String email;
 
     @NotNull
-    @Size(min=5, message = "Password must contain at least 6 characters")
+    @Size(min=5, message = "Password must contain at least 5 characters")
     private String password;
 
     @NotNull(message = "Passwords do not match")
@@ -29,6 +29,7 @@ public class User {
     // Constructor
 
     public User(String username, String email, String password, String verifyPassword) {
+        this();
         this.username = username;
         this.email = email;
         this.password = password;

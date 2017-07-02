@@ -28,6 +28,7 @@ public class UserController {
     public String register(Model model, @ModelAttribute @Valid User user, Errors errors) {
         if (errors.hasErrors()) {
             model.addAttribute(user);
+            model.addAttribute("title", "Register");
             return "user/register";
         }
 
