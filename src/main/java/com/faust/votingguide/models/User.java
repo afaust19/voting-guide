@@ -2,15 +2,25 @@ package com.faust.votingguide.models;
 
 import org.hibernate.validator.constraints.Email;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * Created by afaust on 7/2/17.
  */
+
+@Entity                     //every property (field) in that class will be stored in the database unless you say not to (use @Transient for this)
 public class User {
 
     // Fields
+
+    @Id                     //indicates that this should be the primary id (make sure to use javax library)
+    @GeneratedValue         //persistence engine (data layer) handles the creation of unique ids for each object
+    //@Column(name = "id")    //delete later?
+    private int id;
 
     @NotNull
     @Size(min=3, max=15, message = "Username must be between 3 and 15 characters")
@@ -29,7 +39,7 @@ public class User {
     // Constructor
 
     public User(String username, String email, String password, String verifyPassword) {
-        this();
+        //this();
         this.username = username;
         this.email = email;
         this.password = password;
@@ -42,7 +52,7 @@ public class User {
 
     // Instance Methods
 
-    private void checkPassword() {      //use regular expression later
+    private void checkPassword() {      //use regular expression later?
         if(!this.password.equals(this.verifyPassword)) {
             verifyPassword = null;
         }
@@ -50,6 +60,13 @@ public class User {
 
     // Getters and Setters
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {                 //delete this
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
