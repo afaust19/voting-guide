@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by afaust on 7/1/17.
  */
 @Controller
+@RequestMapping(value = "")
 public class HomeController {                                         //handles all requests to and from root route ('/')
 
     @RequestMapping(value = "")                                       //root route ('/')

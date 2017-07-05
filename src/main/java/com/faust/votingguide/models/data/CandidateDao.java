@@ -1,0 +1,15 @@
+package com.faust.votingguide.models.data;
+
+import com.faust.votingguide.models.Candidate;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+
+/**
+ * Created by afaust on 7/5/17.
+ */
+@Repository
+@Transactional
+public interface CandidateDao extends CrudRepository<Candidate, Integer> {
+}

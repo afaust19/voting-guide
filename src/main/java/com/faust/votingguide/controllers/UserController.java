@@ -22,6 +22,12 @@ public class UserController {
     @Autowired
     UserDao userDao;
 
+    @RequestMapping(value = "")
+    public String index(Model model) {
+        model.addAttribute("title", "Welcome!");
+        return "user/index";
+    }
+
     //make an index handler for all requests at /user='username'
     //redirect to login page if not logged in
 
@@ -43,6 +49,6 @@ public class UserController {
 
         model.addAttribute((user));
         userDao.save(user);
-        return "user/index";
+        return "redirect:";         //redirects to /user
     }
 }
