@@ -51,4 +51,8 @@ public class UserController {
         userDao.save(user);
         return "redirect:";         //redirects to /user
     }
+
+    //handler for viewing ballot
+
+    //handler for editing ballot
 }
