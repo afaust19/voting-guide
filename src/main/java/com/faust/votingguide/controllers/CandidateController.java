@@ -24,7 +24,7 @@ public class CandidateController {
 
     @RequestMapping(value = "")
     public String index(Model model) {
-        model.addAttribute("candidates", candidateDao.findAll());
+        model.addAttribute("candidates", candidateDao.findAll());     //pass in list of all candidates to list as unordered list and as drop down options to compare
         model.addAttribute("title", "Candidates");
         return "candidate/index";
     }
@@ -33,14 +33,12 @@ public class CandidateController {
     public String view(Model model, @RequestParam int candidate_id) {
         Candidate candidate = candidateDao.findOne(candidate_id);
         model.addAttribute("candidate", candidate);
-
         return "candidate/view";
     }
 
+    //@RequestParam(value = "compare")                 //handler for comparing 2 candidates, fetch candidate objects from url passed in from view (candidates.index)
+    //public String
 
-
-
-    //handler for comparing 2 candidates
 
     //handler for adding candidate to user ballot
 }
