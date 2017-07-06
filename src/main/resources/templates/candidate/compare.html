@@ -1,10 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
+<head></head>
 <body>
+
+<h1 th:text="${title}">Default Title</h1>
+
+
+<div th:object="${candidates}">
+
+    <table>
+
+        <tr>                                    <!--lots of repeating lines - condense?-->
+            <th>Name</th>
+            <td th:text="*{compare1.name}"></td>
+        </tr>
+
+        <tr>
+            <th>Age</th>
+            <td th:text="*{compare1.age}"></td>
+        </tr>
+
+        <tr>
+            <th>Party</th>
+            <td th:text="*{compare1.party}"></td>
+        </tr>
+
+        <tr>
+            <th>Education</th>
+            <td th:text="*{compare1.education}"></td>
+        </tr>
+
+        <tr>
+            <th>Elected Offices</th>
+            <td th:text="*{compare1.electedOffices}"></td>
+        </tr>
+
+        <tr>
+            <th>Incumbent?</th>
+            <td th:text="*{compare1.incumbent}"></td>
+        </tr>
+
+        <tr>
+            <th>Website</th>
+            <td th:text="*{compare1.website}"></td>
+        </tr>
+
+    </table>
+
+    <table>
+
+        <tr>                                    <!--lots of repeating lines - condense?-->
+            <th>Name</th>
+            <td th:text="*{compare2.name}"></td>
+        </tr>
+
+        <tr>
+            <th>Age</th>
+            <td th:text="*{compare2.age}"></td>
+        </tr>
+
+        <tr>
+            <th>Party</th>
+            <td th:text="*{compare2.party}"></td>
+        </tr>
+
+        <tr>
+            <th>Education</th>
+            <td th:text="*{compare2.education}"></td>
+        </tr>
+
+        <tr>
+            <th>Elected Offices</th>
+            <td th:text="*{compare2.electedOffices}"></td>
+        </tr>
+
+        <tr>
+            <th>Incumbent?</th>
+            <td th:text="*{compare2.incumbent}"></td>
+        </tr>
+
+        <tr>
+            <th>Website</th>
+            <td th:text="*{compare2.website}"></td>
+        </tr>
+
+    </table>
+
+</div>
 
 </body>
 </html>
