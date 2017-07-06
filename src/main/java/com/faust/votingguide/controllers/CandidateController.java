@@ -31,8 +31,8 @@ public class CandidateController {
 
     @RequestMapping(value = "view", method = RequestMethod.GET)         //handler for viewing one candidate (use id in url to populate view)
     public String view(Model model, @RequestParam int candidate_id) {
-        Candidate theOne = candidateDao.findOne(candidate_id);
-        model.addAttribute("theOne", theOne);
+        Candidate candidate = candidateDao.findOne(candidate_id);
+        model.addAttribute("candidate", candidate);
 
         return "candidate/view";
     }

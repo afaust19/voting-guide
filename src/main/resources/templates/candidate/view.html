@@ -5,9 +5,45 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<div th:object="${theOne}">
-    <a th:text="*{name}"></a>
-</div>
+<table th:object="${candidate}">
+
+    <tr>                                    <!--lots of repeating lines - condense?-->
+        <th>Name</th>
+        <td th:text="*{name}"></td>
+    </tr>
+
+    <tr>
+        <th>Age</th>
+        <td th:text="*{age}"></td>
+    </tr>
+
+    <tr>
+        <th>Party</th>
+        <td th:text="*{party}"></td>
+    </tr>
+
+    <tr>
+        <th>Education</th>
+        <td th:text="*{education}"></td>
+    </tr>
+
+    <tr>
+        <th>Elected Offices</th>
+        <td th:text="*{electedOffices}"></td>
+    </tr>
+
+    <tr>
+        <th>Incumbent?</th>
+        <td th:text="*{incumbent}"></td>
+    </tr>
+
+    <tr>
+        <th>Website</th>
+        <td th:text="*{website}"></td>
+    </tr>
+
+
+</table>
 
 
 
