@@ -5,9 +5,9 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<div th:each="candidate : ${candidates}">
-    <span th:text="${candidate.name}"></span>
-</div>
+<ul th:each="candidate : ${candidates}">
+    <li><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></li>
+</ul>
 
 </body>
 </html>

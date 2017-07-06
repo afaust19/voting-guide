@@ -1,5 +1,6 @@
 package com.faust.votingguide.controllers;
 
+import com.faust.votingguide.models.Candidate;
 import com.faust.votingguide.models.data.CandidateDao;
 import com.faust.votingguide.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by afaust on 7/5/17.
@@ -28,7 +30,9 @@ public class CandidateController {
     }
 
     @RequestMapping(value = "view", method = RequestMethod.GET)         //handler for viewing one candidate (use id in url to populate view)
-    public String view(Model model) {
+    public String view(Model model, @RequestParam int candidate_id) {
+        Candidate theOne = candidateDao.findOne(candidate_id);
+        model.addAttribute("theOne", theOne);
 
         return "candidate/view";
     }
