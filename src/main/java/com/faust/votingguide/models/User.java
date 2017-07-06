@@ -2,11 +2,11 @@ package com.faust.votingguide.models;
 
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by afaust on 7/2/17.
@@ -35,6 +35,10 @@ public class User {
 
     @NotNull(message = "Passwords do not match")
     private String verifyPassword;
+
+    //@OneToMany                                          //one-to-many relationship = each one user will have many ballots, but each ballot can only have one user
+    //@JoinColumn(name = "user_id")                       //tells Hibernate to use the user_id column of the ballot table to determine which ballot belongs to a given user (user_id is automatically created by Hibernate in the Ballot class (user field)
+    //private List<Ballot> ballots = new ArrayList<>();   //creates a new field named ballots (empty ArrayList of Ballot objects) - Hibernate will population this list for us using above annotation specifications
 
     // Constructor
 
@@ -101,4 +105,5 @@ public class User {
         this.verifyPassword = verifyPassword;
         checkPassword();
     }
+
 }
