@@ -18,6 +18,9 @@ public class Ballot {
 
     // Default Constructor
 
+    @NotNull
+    private String candidate;
+
     public Ballot() {}
 
     // Getters and Setters
@@ -29,5 +32,17 @@ public class Ballot {
 
     public int getYear() {
         return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(String candidate) {
+        this.candidate = candidate;
     }
 }
