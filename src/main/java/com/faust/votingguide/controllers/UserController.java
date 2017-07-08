@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import sun.misc.Request;
 
 import javax.validation.Valid;
 
@@ -52,7 +53,16 @@ public class UserController {
         return "redirect:";         //redirects to /user
     }
 
-    //handler for viewing ballot
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String displayLoginForm(Model model) {
+        model.addAttribute("user", new User());
+        return "user/login";
+    }
 
-    //handler for editing ballot
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String processLoginForm(Model model, User user) {
+        //get a user object from the database, based on username entered into form
+        //compare passwords, display errors or redirect to user dashboard if correct
+        return "user/login";
+    }
 }
