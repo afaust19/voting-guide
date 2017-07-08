@@ -12,4 +12,10 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface UserDao extends CrudRepository<User, Integer> {
+
+    //method for finding an object by a specific field (username)
+
+    User findByUsername(String username);
+
+
 }

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import sun.misc.Request;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by afaust on 7/2/17.
@@ -61,8 +64,20 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String processLoginForm(Model model, User user) {
-        //get a user object from the database, based on username entered into form
-        //compare passwords, display errors or redirect to user dashboard if correct
+
+        User existingUser = userDao.findByUsername(user.getUsername());   //need error statement
+
+        if (existingUser.getPassword().equals(user.getPassword())) {
+            model.addAttribute("existingUser", existingUser);
+            return "user/dashboard";
+        }
+
+        model.addAttribute("error", "Invalid password");
         return "user/login";
     }
+
+
 }
+
+
+

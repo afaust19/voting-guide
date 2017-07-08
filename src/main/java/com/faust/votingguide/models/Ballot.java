@@ -13,13 +13,10 @@ public class Ballot {
     @GeneratedValue
     private int id;
 
-    @NotNull
-    private int year;
-
     // Default Constructor
 
     @NotNull
-    private String candidate;
+    private String candidate;       //replace this with Candidate object, not string
 
     public Ballot() {}
 
@@ -28,14 +25,6 @@ public class Ballot {
 
     public int getId() {
         return id;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 
     public String getCandidate() {

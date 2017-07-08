@@ -1,6 +1,8 @@
 package com.faust.votingguide.controllers;
 
+import com.faust.votingguide.models.Ballot;
 import com.faust.votingguide.models.Candidate;
+import com.faust.votingguide.models.data.BallotDao;
 import com.faust.votingguide.models.data.CandidateDao;
 import com.faust.votingguide.models.forms.CompareForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class BallotController {
     @Autowired
     CandidateDao candidateDao;
 
+    @Autowired
+    BallotDao ballotDao;
+
     @RequestMapping(value = "")
     public String index(Model model) {
         return "ballot/index";
@@ -37,7 +42,15 @@ public class BallotController {
 
     @RequestMapping(value = "view", method = RequestMethod.POST)
     public String select(@RequestParam int candidateId, Model model) {;
-        model.addAttribute("candidate", candidateDao.findOne(candidateId));
+        Candidate selectedCandidate = candidateDao.findOne(candidateId);
+        // set candidate in ballot; save ballot in ballotdao
+
+        Ballot newBallot = new Ballot();
+        newBallot.setCandidate(selectedCandidate.getName());
+        ballotDao.save(newBallot);
+
+        model.addAttribute("candidate", selectedCandidate);
+
         return "ballot/success";
 
     }

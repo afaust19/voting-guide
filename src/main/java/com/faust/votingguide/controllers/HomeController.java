@@ -15,4 +15,8 @@ public class HomeController {                                         //handles 
         return "home/index";
     }
 
+    
+
+
+    //handle cookies here?
 }

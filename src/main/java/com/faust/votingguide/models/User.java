@@ -1,6 +1,9 @@
 package com.faust.votingguide.models;
 
+import com.faust.votingguide.models.data.CandidateDao;
+import com.faust.votingguide.models.data.UserDao;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,16 +36,17 @@ public class User {
     @Size(min=5, message = "Password must contain at least 5 characters")
     private String password;
 
-    @NotNull(message = "Passwords do not match")
+    @Transient
+    @NotNull(message = "Passwords do not match")  //does this need to be saved in the database?
     private String verifyPassword;
 
 
-    public User(String username, String email, String password, String verifyPassword) {
+    public User(String username, String email, String password) { //String verifyPassword) {
         //this();
         this.username = username;
         this.email = email;
         this.password = password;
-        this.verifyPassword = verifyPassword;
+        //this.verifyPassword = verifyPassword;
     }
 
     // Default Constructor   -   need this?
@@ -56,6 +60,15 @@ public class User {
             verifyPassword = null;
         }
     }
+
+    // method for fetching a user by username?
+
+    //private boolean checkLoginPassword(String existingPassword, String enteredPassword) {
+    //    if (existingPassword.equals(enteredPassword)) {
+    //        return true;
+    //    } return false;
+    //}
+
 
     // Getters and Setters
 
@@ -100,5 +113,6 @@ public class User {
         this.verifyPassword = verifyPassword;
         checkPassword();
     }
+
 
 }

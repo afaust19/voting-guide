@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+</head>
+
+<body>
+
+<div th:object="${existingUser}">
+    <div th:text="*{username}"></div>
+    <div th:text="*{email}"></div>
+    <div th:text="*{id}"></div>
+</div>
+
+</body>
+</html>
