@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-</head>
+<head></head>
 
 <body>
+
+<h1 th:text="${title}"></h1>
 
 <div th:object="${existingUser}">
     <div th:text="*{username}"></div>

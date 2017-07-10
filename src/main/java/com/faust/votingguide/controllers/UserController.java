@@ -6,11 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import sun.misc.Request;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,18 +67,36 @@ public class UserController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String processLoginForm(Model model, User user) {
+    public String processLoginForm(Model model, User user, HttpServletResponse response) {
 
-        User existingUser = userDao.findByUsername(user.getUsername());   //need error statement
+        User existingUser = userDao.findByUsername(user.getUsername());   //need error statement - try statement to catch Null Exception
 
         if (existingUser.getPassword().equals(user.getPassword())) {
-            model.addAttribute("existingUser", existingUser);
-            return "user/dashboard";
+            //model.addAttribute("existingUser", existingUser);
+            response.addCookie(new Cookie("existingUser", existingUser.getUsername()));  //why does value have to be a String? how to change to int?
+            return "redirect:/user/dashboard";
         }
 
         model.addAttribute("error", "Invalid password");
         return "user/login";
     }
+
+    @RequestMapping(value = "dashboard", method = RequestMethod.GET)
+    public String displayDashboard(Model model, HttpServletRequest request) {
+        for (Cookie c : request.getCookies()) {                                                                         //get all cookies at user/dashboard, iterate through list
+            if (c.getName().equals("existingUser")) {                                                                   //if the cookie's name is "existingUser"
+                User existingUser = userDao.findByUsername(c.getValue());                                               //fetch the existingUser object using the value of the cookie
+                model.addAttribute("title", "Congrats! Cookie found!");
+                model.addAttribute("existingUser", existingUser);
+                return "user/dashboard";
+            }
+
+        }
+        return "redirect:/user/login";  //else, redirect to login page
+    }
+
+
+
 
 
 }

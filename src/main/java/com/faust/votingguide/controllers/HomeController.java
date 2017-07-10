@@ -15,8 +15,15 @@ public class HomeController {                                         //handles 
         return "home/index";
     }
 
-    
+    //handle logout here?
+
+    @RequestMapping(value = "user/logout")
+    public String logout() {
 
 
-    //handle cookies here?
+        return "redirect:";
+    }
+
+
+
 }
