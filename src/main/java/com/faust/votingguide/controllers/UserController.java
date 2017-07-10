@@ -95,9 +95,12 @@ public class UserController {
         return "redirect:/user/login";  //else, redirect to login page
     }
 
-
-
-
+    @RequestMapping(value = "logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("existingUser", "");   //to delete a cookie, set the existing cookie ("existingUser") to an empty string - https://kodejava.org/how-do-i-delete-a-cookie-in-servlet/
+        response.addCookie(cookie);
+        return "redirect:/user/login";
+    }
 
 }
 
