@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 public interface UserDao extends CrudRepository<User, Integer> {
 
     //method for finding an object by a specific field (username)
+    //try to use method in UserController (under processRegisterForm) instead (how to re-use?)
 
     User findByUsername(String username);
 

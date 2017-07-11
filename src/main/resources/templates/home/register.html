@@ -8,7 +8,7 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" action="/user/register" th:object="${user}">
+<form method="post" action="/register" th:object="${user}">
 
     <div>
         <label th:for="username">Username</label>
@@ -33,6 +33,8 @@
         <input th:field="*{verifyPassword}" />
         <span th:errors="*{verifyPassword}"></span>
     </div>
+
+    <div th:text="${error}">Default Error</div>  <!--username is taken error, how to put this in the appropriate div above?-->
 
     <input type="submit" value="Register" />
 

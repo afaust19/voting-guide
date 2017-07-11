@@ -61,15 +61,6 @@ public class User {
         }
     }
 
-    // method for fetching a user by username?
-
-    //private boolean checkLoginPassword(String existingPassword, String enteredPassword) {
-    //    if (existingPassword.equals(enteredPassword)) {
-    //        return true;
-    //    } return false;
-    //}
-
-
     // Getters and Setters
 
     public int getId() {

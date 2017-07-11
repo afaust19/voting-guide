@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<form method="post" action="/user/login" th:object="${user}">
+<form method="post" action="/login" th:object="${user}">
 
     <div>
         <label th:for="username">Username</label>
@@ -16,7 +16,7 @@
         <input th:field="*{password}" />
     </div>
 
-    <div th:text="${error}">Default Error</div>
+    <div th:text="${error}">Default Error</div>  <!--how to put this in the username div above?-->
 
     <input type="submit" value="Log In" />
 
