@@ -24,30 +24,37 @@ import java.util.List;
  * Created by afaust on 7/2/17.
  */
 @Controller
-@RequestMapping("user")
+@RequestMapping("dashboard")
 public class UserController {
 
     @Autowired
     UserDao userDao;
 
-    @RequestMapping(value = "dashboard", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String displayDashboard(Model model, HttpServletRequest request) {
-        for (Cookie c : request.getCookies()) {                                                                         //get all cookies at user/dashboard, iterate through list
-            if (c.getName().equals("existingUser")) {        //and condition for value being empty string                                                           //if the cookie's name is "existingUser"
-                if (!c.getValue().equals("")) {
-                    User existingUser = userDao.findByUsername(c.getValue());                                               //fetch the existingUser object using the value of the cookie
-                    model.addAttribute("title", "Congrats! Cookie found!");
-                    model.addAttribute("existingUser", existingUser);
+
+        HashMap<String, Integer> usernameIdList = new HashMap<>();  //makes a list of all of the usernames in the database - put here or somewhere else for reusability?? How to put this in User class?
+
+        for (User eachUser : userDao.findAll()) {
+            usernameIdList.put(eachUser.getUsername(), eachUser.getId());
+        }
+
+        for (Cookie cookie : request.getCookies()) {
+            String cookieUsername = cookie.getValue();
+            if (cookie.getName().equals("user") && !cookieUsername.equals("")) {
+                if (usernameIdList.containsKey(cookieUsername)) {
+                    int existingUserId = usernameIdList.get(cookieUsername);
+                    User existingUser = userDao.findOne(existingUserId);
+                    model.addAttribute("user", existingUser);
                     return "user/dashboard";
                 }
+                return "redirect:/login"; //if there is no cookie "user" with value ""
             }
-            return "redirect:/login";  //if cookie "existingUser" has value ("")
         }
-        return "redirect:/login";  //if there is no cookie named "existingUser"
-
+        return "redirect:/login"; //if there are no cookies
     }
-
 }
+
 
 
 

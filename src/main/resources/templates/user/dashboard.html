@@ -6,13 +6,13 @@
 
 <h1 th:text="${title}"></h1>
 
-<div th:object="${existingUser}">
+<div th:object="${user}">
     <div th:text="*{username}"></div>
     <div th:text="*{email}"></div>
     <div th:text="*{id}"></div>
 </div>
 
-<a href="/user/logout">Logout</a>
+<a href="/logout">Logout</a>
 
 </body>
 </html>
