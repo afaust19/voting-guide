@@ -35,16 +35,6 @@ public class LoginController {
 
         User existingUser = userDao.findByUsername(user.getUsername());   //need error statement - try statement to catch Null Exception
 
-        //HashMap<String, Integer> usernameIdList = new HashMap<>();  //makes a list of all of the usernames in the database - put here or somewhere else for reusability?? How to put this in User class?
-
-        //for (User eachUser : userDao.findAll()) {
-        //    usernameIdList.put(eachUser.getUsername(), eachUser.getId());
-        //}
-
-        //int existingUserId = usernameIdList.get(user.getUsername());
-
-        //User existingUser = userDao.findOne(existingUserId);
-
         if (existingUser.getPassword().equals(user.getPassword())) {
             Cookie cookie = new Cookie("user", existingUser.getUsername());
             response.addCookie(cookie);

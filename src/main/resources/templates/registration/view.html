@@ -28,11 +28,11 @@
         <span th:errors="*{password}"></span>
     </div>
 
-    <!--<div>
+    <div>
         <label th:for="verifyPassword">Verify Password</label>
-        <input th:field="*{verifyPassword}" />
-        <span th:errors="*{verifyPassword}"></span>
-    </div>-->
+        <input name="verifyPassword" />
+        <span th:text="${verifyError}"></span>
+    </div>
 
     <div th:text="${error}">Default Error</div>  <!--username is taken error, how to put this in the appropriate div above?-->
 

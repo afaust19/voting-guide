@@ -39,11 +39,21 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)   //user should not be able to register if already logged on as another user
-    public String processRegisterForm (Model model, @ModelAttribute @Valid User user, Errors errors, HttpServletResponse response) {
+    public String processRegisterForm (Model model, @ModelAttribute @Valid User user,
+                                       Errors errors, HttpServletResponse response,
+                                       String verifyPassword) {
 
         if (errors.hasErrors()) {
             model.addAttribute(user);
             model.addAttribute("title", "Register");
+            return "registration/view";
+        }
+
+        boolean passwordsMatch = true;
+        if (user.getPassword() == null || verifyPassword == null
+                || !user.getPassword().equals(verifyPassword)) {
+            passwordsMatch = false;
+            model.addAttribute("verifyError", "Passwords do not match");
             return "registration/view";
         }
 
@@ -63,4 +73,23 @@ public class RegistrationController {
         return "registration/view";
 
     }
+
+
+
+                                                                               //model binding matches a new user object with fields in the view (e.g. user.username, user.password, user.email)?
+//boolean passwordsMatch = true;                                                                                        //creates new local variable "passwordsMatch" set to true
+//if (user.getPassword() == null || verify == null                                                                      //if the user's entered password is empty, OR the user's entered verify is empty, OR the user's entered password does not equal the user's entered verify
+//        || !user.getPassword().equals(verify)) {
+//    passwordsMatch = false;                                                                                           //set passwordsMatch to false
+//    user.setPassword("");
+//    model.addAttribute("verifyError", "Passwords must match");                                                        //pass "verifyError" attribute to view
+//}
+
+//if (passwordsMatch) {                                                                                                 //if passwordsMatch still equals True
+//    return "user/index";                                                                                              //render user/index.html
+//}
+
+//    return "user/add";   //render user/add.html
+
+
 }
