@@ -36,9 +36,9 @@ public class User {
     @Size(min=5, message = "Password must contain at least 5 characters")
     private String password;
 
-    @Transient
-    @NotNull(message = "Passwords do not match")  //does this need to be saved in the database?
-    private String verifyPassword;
+    //@Transient
+    //@NotNull(message = "Passwords do not match")  //does this need to be saved in the database?
+    //private String verifyPassword;
 
 
     public User(String username, String email, String password) { //String verifyPassword) {
@@ -55,11 +55,11 @@ public class User {
 
     // Instance Methods
 
-    private void checkPassword() {      //use regular expression later?
-        if(!this.password.equals(this.verifyPassword)) {
-            verifyPassword = null;
-        }
-    }
+    //private void checkPassword() {      //use regular expression later?
+    //    if(!this.password.equals(this.verifyPassword)) {
+    //        verifyPassword = null;
+    //    }
+    //}
 
     // Getters and Setters
 
@@ -93,17 +93,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-        checkPassword();
     }
 
-    public String getVerifyPassword() {
-        return verifyPassword;
-    }
+    //public void setPassword(String password) {
+    //    this.password = password;
+    //    checkPassword();
+    //}
 
-    public void setVerifyPassword(String verifyPassword) {
-        this.verifyPassword = verifyPassword;
-        checkPassword();
-    }
+    //public String getVerifyPassword() {
+    //    return verifyPassword;
+    //}
+
+    //public void setVerifyPassword(String verifyPassword) {
+    //    this.verifyPassword = verifyPassword;
+    //    checkPassword();
+    //}
 
 
 }

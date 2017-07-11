@@ -3,6 +3,7 @@ package com.faust.votingguide.controllers;
 import com.faust.votingguide.models.User;
 import com.faust.votingguide.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 @RequestMapping(value = "register")
 public class RegistrationController {
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     UserDao userDao;
@@ -43,24 +46,21 @@ public class RegistrationController {
             model.addAttribute("title", "Register");
             return "registration/view";
         }
-        //User existingUser = userDao.findByUsername(user.getUsername());
 
-        ArrayList<String> usernameList = new ArrayList<>();  //makes a list of all of the usernames in the database - put here or somewhere else for reusability?? How to put this in User class?
+        User existingUser = userDao.findByUsername(user.getUsername());
 
-        for (User eachUser : userDao.findAll()) {
-            usernameList.add(eachUser.getUsername());
+        if (existingUser == null) {
+            Cookie cookie = new Cookie("user", user.getUsername());
+            response.addCookie(cookie);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userDao.save(user);
+            return "redirect:/dashboard";
         }
 
-        if (usernameList.contains(user.getUsername())) {  //if existing User exists, give error message and redirect to registration page
-            model.addAttribute(user);
-            model.addAttribute("title", "Register");
-            model.addAttribute("error", "Username already exists");
-            return "registration/view";
-        }
+        model.addAttribute(user);
+        model.addAttribute("title", "Register");
+        model.addAttribute("error", "Username already exists");
+        return "registration/view";
 
-        Cookie cookie = new Cookie("user", user.getUsername());
-        response.addCookie(cookie);
-        userDao.save(user);
-        return "redirect:/dashboard";
     }
 }
