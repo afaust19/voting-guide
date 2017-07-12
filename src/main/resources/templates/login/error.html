@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+
+</head>
+
+<body>
+
+<div th:text="${'Not ' + user.username + '?'}"></div>
+
+<div>
+<a href="/logout">Logout</a> |
+<a href="/dashboard">Go to User Dashboard</a>    
+</div>
+
+</body>
+</html>
