@@ -4,15 +4,16 @@
 
 <body>
 
-<h1 th:text="${title}"></h1>
+<h1 th:text="${'Welcome ' + user.username + '!'}"></h1>
 
-<div th:object="${user}">
-    <div th:text="*{username}"></div>
-    <div th:text="*{email}"></div>
-    <div th:text="*{id}"></div>
-</div>
+<ul>
+    <li><a href="/ballot/view">My Ballot</a></li>
+    <li><a href="/candidates">View Candidates</a></li>
+    <li>My Resources</li>
+    <li><a href="/logout">Logout</a></li>
+</ul>
 
-<a href="/logout">Logout</a>
+
 
 </body>
 </html>
