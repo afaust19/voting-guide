@@ -22,7 +22,7 @@ public class User {
 
     @Id                     //indicates that this should be the primary id (make sure to use javax library)
     @GeneratedValue         //persistence engine (data layer) handles the creation of unique ids for each object
-    //@Column(name = "id")    //delete later?
+    //@Column(name = "id")  //delete later?
     private int id;
 
     @NotNull
