@@ -37,10 +37,11 @@ public class Candidate {
     private String education;
 
     @NotNull
-    private String electedOffices;   //how to change to list/CSV?
+    private String electedOffices;   //change to ArrayList of Strings
 
     @NotNull
     private String incumbent;        //boolean instead?
+
 
     // latest Tweet (embedded)
 

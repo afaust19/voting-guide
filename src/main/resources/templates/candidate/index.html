@@ -5,6 +5,8 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
+<div>Mayor</div>
+
 <ul th:each="candidate : ${candidates}">
     <li><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></li>
 </ul>

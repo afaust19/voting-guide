@@ -34,6 +34,7 @@ public class RegistrationController {
     public String displayRegisterForm(Model model, HttpServletRequest request) {
 
         model.addAttribute("user", new User());
+        model.addAttribute("wards", wardDao.findAll());
         //model.addAttribute("wards", new Ward());
         model.addAttribute("title", "Register");
         return "registration/view";
@@ -47,6 +48,7 @@ public class RegistrationController {
         if (errors.hasErrors()) {
             model.addAttribute(user);
             model.addAttribute("title", "Register");
+            model.addAttribute("wards", wardDao.findAll());
             return "registration/view";
         }
 
@@ -55,6 +57,8 @@ public class RegistrationController {
                 || !user.getPassword().equals(verifyPassword)) {
             passwordsMatch = false;
             model.addAttribute("verifyError", "Passwords do not match");
+            model.addAttribute("title", "Register");
+            model.addAttribute("wards", wardDao.findAll());
             return "registration/view";
         }
 
@@ -70,6 +74,7 @@ public class RegistrationController {
         model.addAttribute(user);
         model.addAttribute("title", "Register");
         model.addAttribute("error", "Username already exists");
+        model.addAttribute("wards", wardDao.findAll());
         return "registration/view";
 
     }
