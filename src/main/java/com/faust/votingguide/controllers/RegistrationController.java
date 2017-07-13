@@ -1,7 +1,9 @@
 package com.faust.votingguide.controllers;
 
 import com.faust.votingguide.models.User;
+import com.faust.votingguide.models.Ward;
 import com.faust.votingguide.models.data.UserDao;
+import com.faust.votingguide.models.data.WardDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,10 +27,14 @@ public class RegistrationController {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    WardDao wardDao;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String displayRegisterForm(Model model, HttpServletRequest request) {
 
         model.addAttribute("user", new User());
+        //model.addAttribute("wards", new Ward());
         model.addAttribute("title", "Register");
         return "registration/view";
     }

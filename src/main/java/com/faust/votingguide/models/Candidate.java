@@ -19,6 +19,9 @@ public class Candidate {
     private int id;
 
     @NotNull
+    private String office;
+
+    @NotNull
     private String name;
 
     @NotNull
@@ -43,9 +46,10 @@ public class Candidate {
 
     // Constructor
 
-    public Candidate(String name, String party, int age, String website,
+    public Candidate(String office, String name, String party, int age, String website,
                      String education, String electedOffices,
                      String incumbent) {
+        this.office = office;
         this.name = name;
         this.party = party;
         this.age = age;
@@ -63,6 +67,10 @@ public class Candidate {
 
     public int getId() {
         return id;
+    }
+
+    public String getOffice() {
+        return office;
     }
 
     public String getName() {

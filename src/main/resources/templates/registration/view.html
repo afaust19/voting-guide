@@ -23,6 +23,16 @@
     </div>
 
     <div>
+        <label th:for="ward">St. Louis City Ward</label>
+        <select name="ward">
+            <option th:each="ward : ${wards}"
+                    th:text="${ward.name}"
+                    th:value="${ward.id}"></option>
+        </select>
+        <span th:errors="*{ward}"></span>
+    </div>
+
+    <div>
         <label th:for="password">Password</label>
         <input th:field="*{password}" />
         <span th:errors="*{password}"></span>

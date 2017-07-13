@@ -33,6 +33,9 @@ public class User {
     private String email;
 
     @NotNull
+    private int ward;
+
+    @NotNull
     @Size(min=5, message = "Password must contain at least 5 characters")
     private String password;
 
@@ -41,10 +44,11 @@ public class User {
     //private String verifyPassword;
 
 
-    public User(String username, String email, String password) { //String verifyPassword) {
+    public User(String username, String email, int ward, String password) { //String verifyPassword) {
         //this();
         this.username = username;
         this.email = email;
+        this.ward = ward;
         this.password = password;
         //this.verifyPassword = verifyPassword;
     }
@@ -110,4 +114,11 @@ public class User {
     //}
 
 
+    public int getWard() {
+        return ward;
+    }
+
+    public void setWard(int ward) {
+        this.ward = ward;
+    }
 }

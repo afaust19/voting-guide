@@ -28,7 +28,7 @@ public class CandidateController {
 
     @RequestMapping(value = "")
     public String index(Model model) {
-        model.addAttribute("candidates", candidateDao.findAll());     //pass in list of all candidates to list as unordered list and as drop down options to compare
+        model.addAttribute("candidates", candidateDao.findAll());     //need to filter by type //pass in list of all candidates to list as unordered list and as drop down options to compare
         model.addAttribute("title", "Candidates");
         return "candidate/index";
     }
