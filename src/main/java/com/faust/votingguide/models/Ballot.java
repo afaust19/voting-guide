@@ -16,9 +16,21 @@ public class Ballot {
     // Default Constructor
 
     @NotNull
-    private String candidate;       //replace this with Candidate object, not string
+    private Candidate mayoralCandidate;
 
-    public Ballot() {}
+    @NotNull
+    private Candidate comptrollerCandidate;
+
+    @NotNull
+    private Candidate aldermanicCandidate;
+
+    public Ballot(int id, Candidate mayoralCandidate, Candidate comptrollerCandidate,
+                  Candidate aldermanicCaniddate) {
+        this.id = id;
+        this.mayoralCandidate = mayoralCandidate;
+        this.comptrollerCandidate = comptrollerCandidate;
+        this.aldermanicCandidate = aldermanicCaniddate;
+    }
 
     // Getters and Setters
 
@@ -26,11 +38,27 @@ public class Ballot {
         return id;
     }
 
-    public String getCandidate() {
-        return candidate;
+    public Candidate getMayoralCandidate() {
+        return mayoralCandidate;
     }
 
-    public void setCandidate(String candidate) {
-        this.candidate = candidate;
+    public void setMayoralCandidate(Candidate mayoralCandidate) {
+        this.mayoralCandidate = mayoralCandidate;
+    }
+
+    public Candidate getComptrollerCandidate() {
+        return comptrollerCandidate;
+    }
+
+    public void setComptrollerCandidate(Candidate comptrollerCandidate) {
+        this.comptrollerCandidate = comptrollerCandidate;
+    }
+
+    public Candidate getAldermanicCandidate() {
+        return aldermanicCandidate;
+    }
+
+    public void setAldermanicCandidate(Candidate aldermanicCandidate) {
+        this.aldermanicCandidate = aldermanicCandidate;
     }
 }

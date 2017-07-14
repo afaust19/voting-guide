@@ -48,6 +48,7 @@ public class CandidateController {
         for (Candidate candidate : candidateDao.findAll()) {
             if (candidate.getOffice().equals(office)) {
                 candidateList.add(candidate);
+                model.addAttribute("office", office);
                 model.addAttribute("candidates", candidateList);
             }
         }
@@ -55,16 +56,15 @@ public class CandidateController {
         return "candidate/viewAll";
     }
 
-
-
     @RequestMapping(value = "compare", method = RequestMethod.POST)                 //handler for comparing 2 candidates, fetch candidate objects from url passed in from view (candidates.index)
     public String compare(@ModelAttribute("candidatesToCompare") @Valid CompareForm CandidatesToCompare, Model model) { //empty objects? how to bind two objects at once?
 
         model.addAttribute("candidates", CandidatesToCompare);
+        model.addAttribute("title", "Put Office here");
 
         return "candidate/compare";
     }
 
 
-    //handler for adding candidate to user ballot
+    //handler for adding candidates to user ballot
 }
