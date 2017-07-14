@@ -22,7 +22,7 @@ public class HomeController {                                         //handles 
             }
         }
         return "redirect:/login";               //if not, redirect to login page
-    }
+        }
 }
 
 

@@ -42,6 +42,8 @@ public class Candidate {
     @NotNull
     private String incumbent;        //boolean instead?
 
+    private int wardNumber;
+
 
     // latest Tweet (embedded)
 
@@ -49,7 +51,7 @@ public class Candidate {
 
     public Candidate(String office, String name, String party, int age, String website,
                      String education, String electedOffices,
-                     String incumbent) {
+                     String incumbent, int wardNumber) {
         this.office = office;
         this.name = name;
         this.party = party;
@@ -58,6 +60,7 @@ public class Candidate {
         this.education = education;
         this.electedOffices = electedOffices;
         this.incumbent = incumbent;
+        this.wardNumber = wardNumber;
     }
 
     // Default Constructor
@@ -100,5 +103,9 @@ public class Candidate {
 
     public String getIncumbent() {
         return incumbent;
+    }
+
+    public int getWardNumber() {
+        return wardNumber;
     }
 }

@@ -5,11 +5,44 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<div>Mayor</div>
 
-<ul th:each="candidate : ${candidates}">
-    <li><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></li>
+<a th:href="@{/candidates/viewAll(office = mayor)}">Mayor</a>
+
+    <div th:each="candidate : ${candidates}">
+        <span th:if="${candidate.office} == 'mayor'">
+            <a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a>
+        </span>
+    </div>
+
+
+<a th:href="@{/candidates/viewAll(office = comptroller)}">Comptroller</a>
+
+    <div th:each="candidate : ${candidates}">
+        <span th:if="${candidate.office} == 'comptroller'">
+            <a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a>
+        </span>
+    </div>
+
+
+<a th:href="@{/candidates/viewAll(office = alderman)}">Alderman</a>
+
+    <div th:each="candidate : ${candidates}">
+        <span th:if="${candidate.office} == 'alderman'">
+            <a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a>
+        </span>
+    </div>
+
+
+
+
+   <!-- <li><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></li>
 </ul>
+
+
+
+
+
+
 
 
 <form method="post" th:action="@{/candidates/compare}" th:object="${candidates}" modelAttribute="candidatesToCompare">
@@ -30,7 +63,7 @@
 
     <input type="submit" value="Compare!" />
 
-</form>
+</form>-->
 
 
 
