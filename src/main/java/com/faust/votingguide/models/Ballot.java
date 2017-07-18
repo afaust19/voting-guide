@@ -21,6 +21,9 @@ public class Ballot {
     @ManyToMany
     private List<Measure> measures;
 
+    @OneToOne(mappedBy = "ballot")
+    private User user;
+
     public Ballot(int id) {
         this.id = id;
     }
@@ -50,5 +53,9 @@ public class Ballot {
 
     public List<Measure> getMeasures() {
         return measures;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

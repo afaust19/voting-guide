@@ -38,6 +38,10 @@ public class User {
     @ManyToOne
     private Ward ward;           //add as registration form field
 
+    @OneToOne
+    @JoinColumn(name = "ballot_id")
+    private Ballot ballot;
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -88,5 +92,9 @@ public class User {
 
     public void setWard(Ward ward) {
         this.ward = ward;
+    }
+
+    public Ballot getBallot() {
+        return ballot;
     }
 }
