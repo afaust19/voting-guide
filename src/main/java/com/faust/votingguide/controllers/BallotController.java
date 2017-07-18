@@ -4,6 +4,7 @@ import com.faust.votingguide.models.Ballot;
 import com.faust.votingguide.models.Candidate;
 import com.faust.votingguide.models.data.BallotDao;
 import com.faust.votingguide.models.data.CandidateDao;
+import com.faust.votingguide.models.data.MeasureDao;
 import com.faust.votingguide.models.forms.CompareForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class BallotController {
 
     @Autowired
     CandidateDao candidateDao;
+
+    @Autowired
+    MeasureDao measureDao;
 
     @Autowired
     BallotDao ballotDao;
@@ -55,6 +59,7 @@ public class BallotController {
         model.addAttribute("mayoralCandidates", mayoralList);
         model.addAttribute("comptrollerCandidates", comptrollerList);
         model.addAttribute("aldermanicCandidates", aldermanicList);
+        model.addAttribute("measures", measureDao.findAll());
         return "ballot/view";
     }
 

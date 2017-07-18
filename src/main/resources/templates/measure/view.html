@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head></head>
+<body>
+
+<h1 th:text="${title}">Default Title</h1>
+
+
+<table th:each="measure : ${measures}">
+
+    <tr>
+        <th>Name</th>
+        <td th:text="${measure.name}"></td>
+    </tr>
+
+    <tr>
+        <th>Description</th>
+        <td th:text="${measure.description}"></td>
+    </tr>
+
+</table>
+
+</body>
+</html>
