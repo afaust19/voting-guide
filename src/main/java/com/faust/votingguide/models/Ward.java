@@ -1,9 +1,9 @@
 package com.faust.votingguide.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by afaust on 7/13/17.
@@ -18,6 +18,13 @@ public class Ward {
     @NotNull
     private int wardNumber;
 
+    @OneToMany
+    @JoinColumn(name = "ward_id")
+    private List<User> users = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "ward_id")
+    private List<Candidate> candidates = new ArrayList<>();
 
     // list of candidates in each ward
 
@@ -32,12 +39,19 @@ public class Ward {
 
     public Ward() {}
 
-
     public int getId() {
         return id;
     }
 
     public int getWardNumber() {
         return wardNumber;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public List<Candidate> getCandidates() {
+        return candidates;
     }
 }

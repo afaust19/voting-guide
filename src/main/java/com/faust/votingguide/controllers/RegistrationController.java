@@ -35,7 +35,7 @@ public class RegistrationController {
 
         model.addAttribute("user", new User());
         model.addAttribute("wards", wardDao.findAll());
-        //model.addAttribute("wards", new Ward());
+        System.out.println(wardDao.findAll());
         model.addAttribute("title", "Register");
         return "registration/view";
     }

@@ -22,7 +22,6 @@ public class User {
 
     @Id                     //indicates that this should be the primary id (make sure to use javax library)
     @GeneratedValue         //persistence engine (data layer) handles the creation of unique ids for each object
-    //@Column(name = "id")  //delete later?
     private int id;
 
     @NotNull
@@ -33,37 +32,21 @@ public class User {
     private String email;
 
     @NotNull
-    private int ward;
-
-    @NotNull
     @Size(min=5, message = "Password must contain at least 5 characters")
     private String password;
 
-    //@Transient
-    //@NotNull(message = "Passwords do not match")  //does this need to be saved in the database?
-    //private String verifyPassword;
+    @ManyToOne
+    private Ward ward;           //add as registration form field
 
-
-    public User(String username, String email, int ward, String password) { //String verifyPassword) {
-        //this();
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
-        this.ward = ward;
         this.password = password;
-        //this.verifyPassword = verifyPassword;
     }
 
     // Default Constructor   -   need this?
 
     public User() {}
-
-    // Instance Methods
-
-    //private void checkPassword() {      //use regular expression later?
-    //    if(!this.password.equals(this.verifyPassword)) {
-    //        verifyPassword = null;
-    //    }
-    //}
 
     // Getters and Setters
 
@@ -99,26 +82,11 @@ public class User {
         this.password = password;
     }
 
-    //public void setPassword(String password) {
-    //    this.password = password;
-    //    checkPassword();
-    //}
-
-    //public String getVerifyPassword() {
-    //    return verifyPassword;
-    //}
-
-    //public void setVerifyPassword(String verifyPassword) {
-    //    this.verifyPassword = verifyPassword;
-    //    checkPassword();
-    //}
-
-
-    public int getWard() {
+    public Ward getWard() {
         return ward;
     }
 
-    public void setWard(int ward) {
+    public void setWard(Ward ward) {
         this.ward = ward;
     }
 }

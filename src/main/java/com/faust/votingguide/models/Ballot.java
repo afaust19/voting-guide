@@ -1,7 +1,9 @@
 package com.faust.votingguide.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by afaust on 7/6/17.
@@ -13,23 +15,27 @@ public class Ballot {
     @GeneratedValue
     private int id;
 
-    // Default Constructor
+    @ManyToMany
+    private List<Candidate> candidates;
 
-    @NotNull
-    private Candidate mayoralCandidate;
+    @ManyToMany
+    private List<Measure> measures;
 
-    @NotNull
-    private Candidate comptrollerCandidate;
-
-    @NotNull
-    private Candidate aldermanicCandidate;
-
-    public Ballot(int id, Candidate mayoralCandidate, Candidate comptrollerCandidate,
-                  Candidate aldermanicCaniddate) {
+    public Ballot(int id) {
         this.id = id;
-        this.mayoralCandidate = mayoralCandidate;
-        this.comptrollerCandidate = comptrollerCandidate;
-        this.aldermanicCandidate = aldermanicCaniddate;
+    }
+
+    public Ballot() {
+    }
+
+    // Methods
+
+    public void addCandidateItem(Candidate item) {
+        candidates.add(item);
+    }
+
+    public void addMeasureItem(Measure item) {
+        measures.add(item);
     }
 
     // Getters and Setters
@@ -38,27 +44,11 @@ public class Ballot {
         return id;
     }
 
-    public Candidate getMayoralCandidate() {
-        return mayoralCandidate;
+    public List<Candidate> getCandidates() {
+        return candidates;
     }
 
-    public void setMayoralCandidate(Candidate mayoralCandidate) {
-        this.mayoralCandidate = mayoralCandidate;
-    }
-
-    public Candidate getComptrollerCandidate() {
-        return comptrollerCandidate;
-    }
-
-    public void setComptrollerCandidate(Candidate comptrollerCandidate) {
-        this.comptrollerCandidate = comptrollerCandidate;
-    }
-
-    public Candidate getAldermanicCandidate() {
-        return aldermanicCandidate;
-    }
-
-    public void setAldermanicCandidate(Candidate aldermanicCandidate) {
-        this.aldermanicCandidate = aldermanicCandidate;
+    public List<Measure> getMeasures() {
+        return measures;
     }
 }

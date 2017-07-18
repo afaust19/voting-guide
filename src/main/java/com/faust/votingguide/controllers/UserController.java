@@ -1,4 +1,4 @@
-package com.faust.votingguide.models;
+package com.faust.votingguide.controllers;
 
 import com.faust.votingguide.models.User;
 import com.faust.votingguide.models.data.UserDao;

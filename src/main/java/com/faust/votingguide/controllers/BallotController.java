@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 
 /**
@@ -29,18 +30,35 @@ public class BallotController {
     @Autowired
     BallotDao ballotDao;
 
-    @RequestMapping(value = "")
-    public String index(Model model) {
-        return "ballot/index";
-    }
 
-    @RequestMapping(value = "view", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String view(Model model) {
-        model.addAttribute("candidates", candidateDao.findAll());
+
+        ArrayList<Candidate> mayoralList = new ArrayList<>();
+        ArrayList<Candidate> comptrollerList = new ArrayList<>();
+        ArrayList<Candidate> aldermanicList = new ArrayList<>();
+
+        for (Candidate candidate : candidateDao.findAll()) {
+            if (candidate.getOffice().equals("mayor")) {
+                mayoralList.add(candidate);
+
+            }
+
+            if (candidate.getOffice().equals("comptroller")) {
+                comptrollerList.add(candidate);
+            }
+
+            if (candidate.getOffice().equals("alderman")) {
+                aldermanicList.add(candidate);
+            }
+        }
+        model.addAttribute("mayoralCandidates", mayoralList);
+        model.addAttribute("comptrollerCandidates", comptrollerList);
+        model.addAttribute("aldermanicCandidates", aldermanicList);
         return "ballot/view";
     }
 
-    @RequestMapping(value = "view", method = RequestMethod.POST)
+    /*@RequestMapping(value = "", method = RequestMethod.POST)
     public String select(@RequestParam int candidateId, Model model) {;
         Candidate selectedCandidate = candidateDao.findOne(candidateId);
         // set candidate in ballot; save ballot in ballotdao
@@ -53,6 +71,6 @@ public class BallotController {
 
         return "ballot/success";
 
-    }
+    }*/
 }
 

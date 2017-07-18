@@ -1,10 +1,9 @@
 package com.faust.votingguide.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Created by afaust on 7/5/17.
@@ -42,8 +41,11 @@ public class Candidate {
     @NotNull
     private String incumbent;        //boolean instead?
 
-    private int wardNumber;
+    @ManyToOne
+    private Ward ward;
 
+    @ManyToMany(mappedBy = "candidates")
+    private List<Ballot> ballots;
 
     // latest Tweet (embedded)
 
@@ -51,7 +53,7 @@ public class Candidate {
 
     public Candidate(String office, String name, String party, int age, String website,
                      String education, String electedOffices,
-                     String incumbent, int wardNumber) {
+                     String incumbent) {
         this.office = office;
         this.name = name;
         this.party = party;
@@ -60,7 +62,6 @@ public class Candidate {
         this.education = education;
         this.electedOffices = electedOffices;
         this.incumbent = incumbent;
-        this.wardNumber = wardNumber;
     }
 
     // Default Constructor
@@ -105,7 +106,11 @@ public class Candidate {
         return incumbent;
     }
 
-    public int getWardNumber() {
-        return wardNumber;
+    public Ward getWard() {
+        return ward;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
     }
 }
