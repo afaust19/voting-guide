@@ -97,4 +97,8 @@ public class User {
     public Ballot getBallot() {
         return ballot;
     }
+
+    public void setBallot(Ballot ballot) {
+        this.ballot = ballot;
+    }
 }

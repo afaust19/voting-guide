@@ -41,7 +41,7 @@ public class Ballot {
         measures.add(item);
     }
 
-    // Getters and Setters
+    // Getters
 
     public int getId() {
         return id;
@@ -58,4 +58,8 @@ public class Ballot {
     public User getUser() {
         return user;
     }
+
+    //Setters - need these to create new Ballot in processBallot handler? or use addCandidate and addMeasure
+
+
 }

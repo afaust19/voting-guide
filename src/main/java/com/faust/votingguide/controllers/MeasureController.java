@@ -3,6 +3,7 @@ package com.faust.votingguide.controllers;
 import com.faust.votingguide.models.Candidate;
 import com.faust.votingguide.models.data.CandidateDao;
 import com.faust.votingguide.models.data.MeasureDao;
+import com.faust.votingguide.models.findCurrentUser;
 import com.faust.votingguide.models.forms.CompareForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,14 @@ public class MeasureController {
     @Autowired
     MeasureDao measureDao;
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
+
+
+        //model.addAttribute("theCurrentUsername", theCurrentUsername);
+        System.out.println("theCurrentUsername");
+        System.out.println("Did it work?");
+
         model.addAttribute("measures", measureDao.findAll());
         model.addAttribute("title", "Measures");
         return "measure/view";

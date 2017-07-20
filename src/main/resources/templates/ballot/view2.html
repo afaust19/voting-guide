@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head></head>
+
+<body>
+
+
+<form method="post" th:action="@{/ballot}" modelAttribute="ballotChoices">
+
+    <div>
+        <label th:for="mayoralCandidate">Mayor</label>
+        <select th:name="mayoralCandidate">
+            <option th:each="candidate : ${candidates}"
+                    th:if="${candidate.office} == 'mayor'"
+                    th:text="${candidate.name}"
+                    th:value="${candidate}"></option>    <!--pass back the entire object (not id?)-->
+        </select>
+    </div>
+
+
+    <div>
+        <label th:for="comptrollerCandidate">Comptroller</label>
+        <select th:name="comptrollerCandidate">
+            <option th:each="candidate : ${candidates}"
+                    th:if="${candidate.office} == 'comptroller'"
+                    th:text="${candidate.name}"
+                    th:value="${candidate}"></option>
+        </select>
+    </div>
+
+
+    <div>
+        <label th:for="aldermanicCandidate">Alderperson</label>
+        <select th:name="aldermanicCandidate">
+            <option th:each="candidate : ${candidates}"
+                    th:if="${candidate.office} == 'alderman' and ${candidate.ward.id} == ${currentUserWardId}"
+                    th:text="${candidate.name}"
+                    th:value="${candidate}"></option>
+        </select>
+    </div>
+
+
+    <div th:each="measure : ${measures}">
+        <p><div th:text="${measure.name}"></div></p>
+        <select>
+            <option value="yes">YES - FOR THE PROPOSITION</option>
+            <option value="no">NO - AGAINST THE PROPOSITION</option>
+        </select>
+    </div>
+
+    <p><input type="submit" value="Submit" /></p>
+
+</form>
+
+</body>
+</html>
+

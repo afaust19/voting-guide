@@ -2,6 +2,7 @@ package com.faust.votingguide.controllers;
 
 import com.faust.votingguide.models.User;
 import com.faust.votingguide.models.data.UserDao;
+import com.faust.votingguide.models.findCurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,7 @@ public class UserController {
         for (User eachUser : userDao.findAll()) {
             usernameIdList.put(eachUser.getUsername(), eachUser.getId());
         }
+
 
         for (Cookie cookie : request.getCookies()) {
             String cookieUsername = cookie.getValue();

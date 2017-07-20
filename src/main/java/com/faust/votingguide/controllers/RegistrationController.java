@@ -1,7 +1,9 @@
 package com.faust.votingguide.controllers;
 
+import com.faust.votingguide.models.Ballot;
 import com.faust.votingguide.models.User;
 import com.faust.votingguide.models.Ward;
+import com.faust.votingguide.models.data.BallotDao;
 import com.faust.votingguide.models.data.UserDao;
 import com.faust.votingguide.models.data.WardDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class RegistrationController {
 
     @Autowired
     WardDao wardDao;
+
+    @Autowired
+    BallotDao ballotDao;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String displayRegisterForm(Model model, HttpServletRequest request) {
@@ -67,7 +72,15 @@ public class RegistrationController {
         if (existingUser == null) {
             Cookie cookie = new Cookie("user", user.getUsername());
             response.addCookie(cookie);
-            userDao.save(user);
+            userDao.save(user);                 //save user to database
+
+            Ballot newBallot = new Ballot();    //create empty ballot
+            ballotDao.save(newBallot);          //save ballot to database
+
+            //set newBallot to current user
+
+
+
             return "redirect:/dashboard";
         }
 

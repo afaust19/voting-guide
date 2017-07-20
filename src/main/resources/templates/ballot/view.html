@@ -5,48 +5,54 @@
 <body>
 
 
-<form method="post" th:object="${candidates}">
+<form method="post" action="/ballot" th:object="${form}" modelAttribute="ballotFormView">
 
-    <p><label>Mayor</label></p>
 
-    <select name="mayorId">         <!--use radio buttons instead-->
-        <option th:each="candidate : ${mayoralCandidates}"
-                th:text="${candidate.name}"
-                th:value="${candidate.id}"></option>
-    </select>
-
-    <p><label>Comptroller</label></p>
-
-    <select name="comptrollerId">                               <!--use radio buttons instead-->
-        <option th:each="candidate : ${comptrollerCandidates}"
-                th:text="${candidate.name}"
-                th:value="${candidate.id}"></option>
-    </select>
-
-    <p><label>Alderman</label></p>
-
-    <select name="aldermanId>">
-
-    <option th:each="candidate : ${aldermanicCandidates}"
-            th:if="${candidate.ward.id} == ${currentUserWardId}"
-            th:text="${candidate.name}"
-            th:value="${candidate.id}"></option>
-
-    </select>
-
-    <div th:each="measure : ${measures}">
-
-        <p><div th:text="${measure.name}"></div></p>
-
-        <select>
-
-            <option value="yes">YES - FOR THE PROPOSITION</option>
-
-            <option value="no">NO - AGAINST THE PROPOSITION</option>
-
+    <div>
+        <label th:for="mayoralCandidateId">Mayor</label>
+        <select th:name="mayoralCandidateId"
+                th:field="*{candidates}">
+            <option th:each="candidate : *{candidates}"
+                    th:if="${candidate.office} == 'mayor'"
+                    th:text="${candidate.name}"
+                    th:value="${candidate.id}"></option>
         </select>
-
     </div>
+
+
+    <div>
+        <label th:for="comptrollerCandidateId">Comptroller</label>
+        <select th:name="comptrollerCandidateId"
+                th:field="*{candidates}">
+            <option th:each="candidate : *{candidates}"
+                    th:if="${candidate.office} == 'comptroller'"
+                    th:text="${candidate.name}"
+                    th:value="${candidate.id}"></option>
+        </select>
+    </div>
+
+
+    <div>
+        <label th:for="aldermanicCandidateId">Alderperson</label>
+        <select th:name="aldermanicCandidateId"
+                th:field="*{candidates}">
+            <option th:each="candidate : *{candidates}"
+                    th:if="${candidate.office} == 'alderman' and ${candidate.ward.id} == ${currentUserWardId}"
+                    th:text="${candidate.name}"
+                    th:value="${candidate.id}"></option>
+        </select>
+    </div>
+
+
+    <!--<div th:each="measure : ${measures}">
+        <p><div th:text="${measure.name}"></div></p>
+        <select>
+            <option value="yes">YES - FOR THE PROPOSITION</option>
+            <option value="no">NO - AGAINST THE PROPOSITION</option>
+        </select>
+    </div>-->
+
+    <!--<input type="hidden" name="ballotId" th:value="*{ballot.id}" />-->
 
     <p><input type="submit" value="Submit" /></p>
 
@@ -54,3 +60,4 @@
 
 </body>
 </html>
+
