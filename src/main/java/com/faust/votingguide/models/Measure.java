@@ -23,6 +23,8 @@ public class Measure {
     @NotNull
     private String description;
 
+    private boolean selectYes;  //this can be null when creating a new object in database?
+
     @ManyToMany(mappedBy = "measures")
     private List<Ballot> ballots;
 
@@ -31,6 +33,7 @@ public class Measure {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.selectYes = true;                  //marks all measures as "yes" by default, changed once the measure gets put on the user's ballot
     }
 
     //Default Constructor
@@ -49,5 +52,13 @@ public class Measure {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean isSelectYes() {
+        return selectYes;
+    }
+
+    public void setSelectYes(boolean selectYes) {
+        this.selectYes = selectYes;
     }
 }

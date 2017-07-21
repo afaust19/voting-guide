@@ -44,15 +44,13 @@
     </div>
 
 
-    <!--<div th:each="measure : ${measures}">
+    <div th:each="measure : *{measures}">
         <p><div th:text="${measure.name}"></div></p>
         <select>
             <option value="yes">YES - FOR THE PROPOSITION</option>
             <option value="no">NO - AGAINST THE PROPOSITION</option>
         </select>
-    </div>-->
-
-    <!--<input type="hidden" name="ballotId" th:value="*{ballot.id}" />-->
+    </div>
 
     <p><input type="submit" value="Submit" /></p>
 

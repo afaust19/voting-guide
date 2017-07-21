@@ -24,8 +24,10 @@ public class Ballot {
     @OneToOne(mappedBy = "ballot")
     private User user;
 
-    public Ballot(int id) {
+    public Ballot(int id, List<Candidate> candidates, User user) {
         this.id = id;
+        this.candidates = candidates;
+        this.user = user;
     }
 
     public Ballot() {
@@ -51,12 +53,20 @@ public class Ballot {
         return candidates;
     }
 
+    public void setCandidates(List<Candidate> candidates) {
+        this.candidates = candidates;
+    }
+
     public List<Measure> getMeasures() {
         return measures;
     }
 
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     //Setters - need these to create new Ballot in processBallot handler? or use addCandidate and addMeasure

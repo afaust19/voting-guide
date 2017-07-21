@@ -31,11 +31,6 @@ public class MeasureController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
 
-
-        //model.addAttribute("theCurrentUsername", theCurrentUsername);
-        System.out.println("theCurrentUsername");
-        System.out.println("Did it work?");
-
         model.addAttribute("measures", measureDao.findAll());
         model.addAttribute("title", "Measures");
         return "measure/view";
