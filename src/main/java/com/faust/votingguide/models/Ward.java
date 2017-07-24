@@ -26,9 +26,7 @@ public class Ward {
     @JoinColumn(name = "ward_id")
     private List<Candidate> candidates = new ArrayList<>();
 
-    // list of candidates in each ward
-
-    // list of issues for each ward
+    // list of measures for each ward
 
     public Ward(int id, int wardNumber) {
         this.id = id;

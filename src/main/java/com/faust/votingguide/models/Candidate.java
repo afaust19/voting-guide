@@ -47,9 +47,7 @@ public class Candidate {
     @ManyToMany(mappedBy = "candidates")
     private List<Ballot> ballots;
 
-    // latest Tweet (embedded)
-
-    // Constructor
+    // latest Tweet (embedded) - add to resources page?
 
     public Candidate(String office, String name, String party, int age, String website,
                      String education, String electedOffices,
@@ -64,11 +62,9 @@ public class Candidate {
         this.incumbent = incumbent;
     }
 
-    // Default Constructor
 
     public Candidate() {}
 
-    // Getters and Setters (no setters because user should not be able to change?)
 
     public int getId() {
         return id;
@@ -113,4 +109,9 @@ public class Candidate {
     public void setWard(Ward ward) {
         this.ward = ward;
     }
+
+    public void setBallots(List<Ballot> ballots) {
+        this.ballots = ballots;
+    }
+
 }

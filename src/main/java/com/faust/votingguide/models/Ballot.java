@@ -30,10 +30,8 @@ public class Ballot {
         this.user = user;
     }
 
-    public Ballot() {
-    }
+    public Ballot() {}
 
-    // Methods
 
     public void addCandidateItem(Candidate item) {
         candidates.add(item);
@@ -43,7 +41,6 @@ public class Ballot {
         measures.add(item);
     }
 
-    // Getters
 
     public int getId() {
         return id;
@@ -61,15 +58,16 @@ public class Ballot {
         return measures;
     }
 
+    public void setMeasures(List<Measure> measures) {
+        this.measures = measures;
+    }
+
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
+}
 
     //Setters - need these to create new Ballot in processBallot handler? or use addCandidate and addMeasure
-
-
-}

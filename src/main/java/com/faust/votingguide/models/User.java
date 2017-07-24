@@ -18,8 +18,6 @@ import java.util.List;
 @Entity                     //every property (field) in that class will be stored in the database unless you say not to (use @Transient for this)
 public class User {
 
-    // Fields
-
     @Id                     //indicates that this should be the primary id (make sure to use javax library)
     @GeneratedValue         //persistence engine (data layer) handles the creation of unique ids for each object
     private int id;
@@ -52,7 +50,6 @@ public class User {
 
     public User() {}
 
-    // Getters and Setters
 
     public int getId() {
         return id;

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head></head>
+
+<head th:replace="fragments :: head">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
+</head>
 
 <body>
 
-
+<nav th:replace="fragments :: navigation"></nav>
 
 <h1 th:text="${'Welcome ' + user.username + '!'}"></h1>
 
@@ -14,12 +16,8 @@
     <li>My Resources</li>
     <li><a href="/ballot">Cast My Ballot</a></li>
     <li>View Election Results</li>
-
-
     <li><a href="/logout">Logout</a></li>
 </ul>
-
-
 
 </body>
 </html>

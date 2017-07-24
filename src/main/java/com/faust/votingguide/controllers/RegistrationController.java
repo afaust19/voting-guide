@@ -40,7 +40,6 @@ public class RegistrationController {
 
         model.addAttribute("user", new User());
         model.addAttribute("wards", wardDao.findAll());
-        System.out.println(wardDao.findAll());
         model.addAttribute("title", "Register");
         return "registration/view";
     }
@@ -73,13 +72,6 @@ public class RegistrationController {
             Cookie cookie = new Cookie("user", user.getUsername());
             response.addCookie(cookie);
             userDao.save(user);                 //save user to database
-
-            Ballot newBallot = new Ballot();    //create empty ballot
-            ballotDao.save(newBallot);          //save ballot to database
-
-            //set newBallot to current user
-
-
 
             return "redirect:/dashboard";
         }

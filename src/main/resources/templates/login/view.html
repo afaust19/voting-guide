@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
+<head th:replace="fragments :: head">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
 </head>
 <body>
+
+<nav th:replace="fragments :: navigation"></nav>
 
 <form method="post" action="/login" th:object="${user}">
 

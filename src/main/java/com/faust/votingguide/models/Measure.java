@@ -23,24 +23,19 @@ public class Measure {
     @NotNull
     private String description;
 
-    private boolean selectYes;  //this can be null when creating a new object in database?
 
     @ManyToMany(mappedBy = "measures")
     private List<Ballot> ballots;
 
-
     public Measure(int id, String name, String description) {
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.selectYes = true;                  //marks all measures as "yes" by default, changed once the measure gets put on the user's ballot
+        this.description = description;                                                                                     //marks all measures as "yes" by default, changed once the measure gets put on the user's ballot
     }
 
-    //Default Constructor
 
     public Measure() {}
 
-    // Getters and Setters
 
     public int getId() {
         return id;
@@ -54,11 +49,7 @@ public class Measure {
         return description;
     }
 
-    public boolean isSelectYes() {
-        return selectYes;
-    }
-
-    public void setSelectYes(boolean selectYes) {
-        this.selectYes = selectYes;
+    public List<Ballot> getBallots() {
+        return ballots;
     }
 }

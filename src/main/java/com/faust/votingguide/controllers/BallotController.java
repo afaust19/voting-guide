@@ -1,10 +1,7 @@
 package com.faust.votingguide.controllers;
 
 import com.faust.votingguide.models.*;
-import com.faust.votingguide.models.data.BallotDao;
-import com.faust.votingguide.models.data.CandidateDao;
-import com.faust.votingguide.models.data.MeasureDao;
-import com.faust.votingguide.models.data.UserDao;
+import com.faust.votingguide.models.data.*;
 import com.faust.votingguide.models.forms.BallotForm;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -49,9 +46,9 @@ public class BallotController {
             if (cookie.getName().equals("user")) {
                 String currentUsername = cookie.getValue();
                 User currentUser = userDao.findByUsername(currentUsername);
-                //if (currentUser.getBallot() != null) {   //ADD LATER (AFTER TESTING)
-                //    return "ballot/error";     //check if currentUser already has a ballot submitted (check if ballotid is not null - if so, redirect to error)
-                //}
+                if (currentUser.getBallot() != null) {   //ADD LATER (AFTER TESTING)
+                    return "ballot/error";     //check if currentUser already has a ballot submitted (check if ballotid is not null - if so, redirect to error)
+                }
 
                 Ward currentUserWard = currentUser.getWard();
                 int currentUserWardId = currentUserWard.getId();
@@ -59,7 +56,7 @@ public class BallotController {
             }
         }
 
-        List<Candidate> candidates = new ArrayList<>();
+        List<Candidate> candidates = new ArrayList<>(); //put this list and measures list at top as global variable? since you are creating similar lists in the POST handler
 
         for (Candidate candidate : candidateDao.findAll()) {
             candidates.add(candidate);
@@ -68,8 +65,8 @@ public class BallotController {
         List<Measure> measures = new ArrayList<>();
 
         for (Measure measure : measureDao.findAll()) {
-            measures.add(measure);
-        }
+                measures.add(measure);
+            }
 
         BallotForm form = new BallotForm(candidates, measures);
         model.addAttribute("form", form);
@@ -78,18 +75,28 @@ public class BallotController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String processBallot(@ModelAttribute ("ballotFormView") BallotForm form, HttpServletRequest request) {
+    public String processBallot(@ModelAttribute ("ballotFormView") BallotForm form,
+                                HttpServletRequest request) {
 
         Ballot ballot = new Ballot();
 
         ballot.setCandidates(form.getCandidates());
+
+        List<Measure> measures = new ArrayList<>();
+
+        if (form.getMeasures() != null) {
+            measures.addAll(form.getMeasures());
+            }
+
+        ballot.setMeasures(measures);
+
 
         for (Cookie cookie : request.getCookies()) {
             if (cookie.getName().equals("user")) {
                 String currentUsername = cookie.getValue();
                 User currentUser = userDao.findByUsername(currentUsername);  //finds the user currently logged in
                 ballot.setUser(currentUser);                                //sets the user to the ballot object just created above
-                currentUser.setBallot(ballot);                              //sets the ballot object to the user object
+                currentUser.setBallot(ballot);                      //sets the ballot object to the user object
             }
         }
 
