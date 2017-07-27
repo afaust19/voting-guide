@@ -33,6 +33,7 @@ public class User {
     @Size(min=5, message = "Password must contain at least 5 characters")
     private String password;
 
+    @NotNull
     @ManyToOne
     private Ward ward;           //add as registration form field
 

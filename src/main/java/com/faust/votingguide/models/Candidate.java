@@ -41,6 +41,8 @@ public class Candidate {
     @NotNull
     private String incumbent;        //boolean instead?
 
+    private int votes = 0;
+
     @ManyToOne
     private Ward ward;
 
@@ -51,7 +53,7 @@ public class Candidate {
 
     public Candidate(String office, String name, String party, int age, String website,
                      String education, String electedOffices,
-                     String incumbent) {
+                     String incumbent, int votes) {
         this.office = office;
         this.name = name;
         this.party = party;
@@ -60,10 +62,15 @@ public class Candidate {
         this.education = education;
         this.electedOffices = electedOffices;
         this.incumbent = incumbent;
+        this.votes = votes;
     }
 
 
     public Candidate() {}
+
+    public boolean equals(Candidate candidate) {
+        return (this.id == candidate.id);
+    }
 
 
     public int getId() {
@@ -76,6 +83,14 @@ public class Candidate {
 
     public String getName() {
         return name;
+    }
+
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
     }
 
     public String getParty() {

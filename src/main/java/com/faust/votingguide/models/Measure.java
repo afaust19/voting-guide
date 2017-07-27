@@ -23,14 +23,16 @@ public class Measure {
     @NotNull
     private String description;
 
+    private int votes = 0;
 
     @ManyToMany(mappedBy = "measures")
     private List<Ballot> ballots;
 
-    public Measure(int id, String name, String description) {
+    public Measure(int id, String name, String description, int votes) {
         this.id = id;
         this.name = name;
-        this.description = description;                                                                                     //marks all measures as "yes" by default, changed once the measure gets put on the user's ballot
+        this.description = description;
+        this.votes = votes;             //marks all measures as "yes" by default, changed once the measure gets put on the user's ballot
     }
 
 
@@ -45,6 +47,14 @@ public class Measure {
         return name;
     }
 
+    public int getVotes() {
+        return votes;
+    }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -52,4 +62,6 @@ public class Measure {
     public List<Ballot> getBallots() {
         return ballots;
     }
+
+
 }

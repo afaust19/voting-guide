@@ -12,4 +12,6 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface MeasureDao extends CrudRepository<Measure, Integer> {
+
+    Measure findByName(String name);
 }

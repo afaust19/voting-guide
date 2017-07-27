@@ -14,4 +14,6 @@ import javax.transaction.Transactional;
 @Transactional
 public interface CandidateDao extends CrudRepository<Candidate, Integer> {
 
+    Candidate findByName(String name);
+
 }

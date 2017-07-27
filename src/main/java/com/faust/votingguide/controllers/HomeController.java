@@ -15,14 +15,16 @@ public class HomeController {                                         //handles 
 
     @RequestMapping(value = "", method = RequestMethod.GET)                                       //root route ('/')
     public String index(HttpServletRequest request) {
-        for (Cookie cookie : request.getCookies()) {
-            String cookieUsername = cookie.getValue();
-            if (cookie.getName().equals("user") && !cookieUsername.equals("")) {
-                return "redirect:/dashboard";                                  //read cookies - if logged in (cookie value not empty string), redirect to user dashboard (dashboard route will read cookies and fetch user
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                String cookieUsername = cookie.getValue();
+                if (cookie.getName().equals("user") && !cookieUsername.equals("")) {
+                    return "redirect:/dashboard";                                  //read cookies - if logged in (cookie value not empty string), redirect to user dashboard (dashboard route will read cookies and fetch user
+                }
             }
         }
         return "redirect:/login";               //if not, redirect to login page
-        }
+    }
 }
 
 

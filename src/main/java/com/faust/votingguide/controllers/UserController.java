@@ -33,19 +33,22 @@ public class UserController {
         }
 
 
-        for (Cookie cookie : request.getCookies()) {
-            String cookieUsername = cookie.getValue();
-            if (cookie.getName().equals("user") && !cookieUsername.equals("")) {
-                if (usernameIdList.containsKey(cookieUsername)) {
-                    int existingUserId = usernameIdList.get(cookieUsername);
-                    User existingUser = userDao.findOne(existingUserId);
-                    model.addAttribute("user", existingUser);
-                    return "user/dashboard";
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                String cookieUsername = cookie.getValue();
+                if (cookie.getName().equals("user") && !cookieUsername.equals("")) {
+                    if (usernameIdList.containsKey(cookieUsername)) {
+                        int existingUserId = usernameIdList.get(cookieUsername);
+                        User existingUser = userDao.findOne(existingUserId);
+                        model.addAttribute("user", existingUser);
+                        return "user/dashboard";
+                    }
+                    return "redirect:/login"; //if there is no cookie "user" with value ""
                 }
-                return "redirect:/login"; //if there is no cookie "user" with value ""
             }
+            return "redirect:/login"; //if there are no cookies
         }
-        return "redirect:/login"; //if there are no cookies
+        return "redirect:/login";
     }
 }
 

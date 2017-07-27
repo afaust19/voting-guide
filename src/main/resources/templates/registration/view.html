@@ -2,29 +2,27 @@
 
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
-<head th:replace="fragments :: head">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
-</head>
-<body>
+<head th:replace="fragments :: head"></head>                                               <!--replace this head with whatever is in the head of the fragments.html file-->
 
-<nav th:replace="fragments :: navigation"></nav>
+<body class="container">
 
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" action="/register" th:object="${user}">
+<form method="post" action="/register" style="max-width:600px;" th:object="${user}">
 
-    <div>
+    <div class="form-group">
         <label th:for="username">Username</label>
-        <input th:field="*{username}" />
+        <input class="form-control" th:field="*{username}" />
         <span th:errors="*{username}"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <label th:for="email">Email</label>
-        <input th:field="*{email}" />
+        <input class="form-control" th:field="*{email}" />
         <span th:errors="*{email}"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <label th:for="ward">St. Louis City Ward</label>
         <select name="ward">
             <option value="">Select</option>
@@ -35,15 +33,15 @@
 
     </div>
 
-    <div>
+    <div class="form-group">
         <label th:for="password">Password</label>
-        <input th:field="*{password}" />
+        <input class="form-control" th:field="*{password}" />
         <span th:errors="*{password}"></span>
     </div>
 
-    <div>
+    <div class="form-group">
         <label th:for="verifyPassword">Verify Password</label>
-        <input name="verifyPassword" />
+        <input class="form-control" name="verifyPassword" />
         <span th:text="${verifyError}"></span>
     </div>
 

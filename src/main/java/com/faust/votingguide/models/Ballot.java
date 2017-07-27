@@ -2,7 +2,6 @@ package com.faust.votingguide.models;
 
 import javax.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public class Ballot {
 
     public Ballot(int id, List<Candidate> candidates, User user) {
         this.id = id;
-        this.candidates = candidates;
+        this.candidates = candidates;   //need to add measures to constructor
         this.user = user;
     }
 
@@ -68,6 +67,7 @@ public class Ballot {
     public void setUser(User user) {
         this.user = user;
     }
+
 }
 
     //Setters - need these to create new Ballot in processBallot handler? or use addCandidate and addMeasure

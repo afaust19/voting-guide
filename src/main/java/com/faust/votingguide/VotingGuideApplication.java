@@ -9,4 +9,5 @@ public class VotingGuideApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(VotingGuideApplication.class, args);
 	}
+
 }

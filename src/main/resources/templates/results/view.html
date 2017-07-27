@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
+
+<head th:replace="fragments :: head"></head>                                                                       <!--replace this head with whatever is in the head of the fragments.html file-->
+
 <body>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="${title}">Default Title</h1>
+
+
+<ul>
+    <li th:each="entry : ${candidateResults}">
+        <p th:text="${entry.key.name + ' | ' + entry.value}"></p>
+    </li>
+</ul>
+
+
+
+<ul>
+    <li th:each="entry : ${measureResults}">
+        <p th:text="${entry.key.name + ' | ' + entry.value}"></p>
+    </li>
+</ul>
+
 
 </body>
 </html>
