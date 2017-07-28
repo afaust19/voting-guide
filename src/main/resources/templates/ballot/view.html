@@ -64,11 +64,7 @@
 
 </form>
 
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>
 
-<!--<div th:each="measure : *{measures}"> DOES NOT GROUP BUTTONS PROPERLY
-    <div th:text="${measure.name}"></div>
-    <div><input type="radio" name="${measure.name}" th:field="*{measures}" th:value="${measure.id}" />YES - FOR THE PROPOSITION</div>
-    <div><input type="radio" name="${measure.name}" th:field="*{measures}" th:value="0"/>NO - AGAINST THE PROPOSITION</div>
-</div>-->

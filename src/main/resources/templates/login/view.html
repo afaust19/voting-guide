@@ -4,6 +4,8 @@
 </head>
 <body>
 
+<nav th:replace="fragments :: navigation"></nav>
+
 <form method="post" action="/login" th:object="${user}">
 
     <div>
@@ -24,5 +26,6 @@
 
 <a href="/register">Register</a>
 
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>

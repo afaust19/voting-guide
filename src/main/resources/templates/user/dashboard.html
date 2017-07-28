@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
-<head th:replace="fragments :: head">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
+<head th:replace="fragments :: header">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
 </head>
 
-<body class="container">
+<body>
 
-<h1 th:text="${'Welcome ' + user.username + '!'}"></h1>
+<nav th:replace="fragments :: navigation"></nav>
 
-<ul class="list-group">
-    <li class="list-group-item"><a href="/candidates">Candidates</a></li>
-    <li class="list-group-item"><a href="/measures">Measures</a></li>
-    <li class="list-group-item">My Resources</li>
-    <li class="list-group-item"><a href="/ballot">Cast My Ballot</a></li>
-    <li class="list-group-item"><a href="/results">View Election Results</a></li>
-    <li class="list-group-item"><a href="/logout">Logout</a></li>
-</ul>
-
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>

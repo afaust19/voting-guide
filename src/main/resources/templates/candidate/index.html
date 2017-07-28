@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
-</head>
+<head th:replace="fragments :: header"></head>                                              <!--replace this head with whatever is in the head of the fragments.html file-->
 <body>
 
 <nav th:replace="fragments :: navigation"></nav>
-
 <h1 th:text="${title}">Default Title</h1>
 
 
@@ -35,5 +33,7 @@
         </span>
     </div>
 
+
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>

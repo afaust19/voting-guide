@@ -106,8 +106,18 @@ public class ResultsController {
             allMeasurePercentages.put(result.getKey(), twoDecimal);
         }
 
+        List<String> chartCandidates = new ArrayList<>();  //make separate ArrayLists for the data points to get passed into view for google charts
+        List<Double> chartPercentages = new ArrayList<>();
+
+        for (Map.Entry<Candidate, Double> result : allCandidatePercentages.entrySet()) {
+            chartCandidates.add(result.getKey().getName());
+            chartPercentages.add(result.getValue());
+        }
+
         model.addAttribute("measureResults", allMeasurePercentages);
         model.addAttribute("candidateResults", allCandidatePercentages);
+        model.addAttribute("chartCandidates", chartCandidates);
+        model.addAttribute("chartPercentages", chartPercentages);
         model.addAttribute("title", "Results");
 
 

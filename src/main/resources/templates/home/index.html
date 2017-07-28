@@ -6,13 +6,6 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1>Voting Guide</h1>
-
-<a href="/user/dashboard">User Dashboard</a> |
-<a href="/register">Register</a> |
-<a href="/login">Login</a> |  <!--only display if user is logged out-->
-<a href="/logout">Logout</a>  <!--only display if user is logged in-->
-
-
+<div th:replace="fragments :: footer"></div>
 </body>
 </html>
