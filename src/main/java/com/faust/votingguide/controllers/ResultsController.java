@@ -109,11 +109,17 @@ public class ResultsController {
         List<String> comptrollerCandidates = new ArrayList<>();
         List<String> alderman7Candidates = new ArrayList<>();
         List<String> alderman28Candidates = new ArrayList<>();
+        List<String> measure1 = new ArrayList<>();
+        List<String> measure2 = new ArrayList<>();
+        List<String> measure3 = new ArrayList<>();
 
         List<Double> mayoralPercentages = new ArrayList<>();
         List<Double> comptrollerPercentages = new ArrayList<>();
         List<Double> alderman7Percentages = new ArrayList<>();
         List<Double> alderman28Percentages = new ArrayList<>();
+        List<Double> measure1Percentages = new ArrayList<>();
+        List<Double> measure2Percentages = new ArrayList<>();
+        List<Double> measure3Percentages = new ArrayList<>();
 
         for (Map.Entry<Candidate, Double> result : allCandidatePercentages.entrySet()) {
             if (result.getKey().getOffice().equals("mayor")) {
@@ -124,7 +130,7 @@ public class ResultsController {
                 comptrollerCandidates.add(result.getKey().getName());
                 comptrollerPercentages.add(result.getValue());
             }
-            if (result.getKey().getOffice().equals("alderman")) {
+            if (result.getKey().getOffice().equals("alderman")) {       //make dynamic?
                 if (result.getKey().getWard().getWardNumber() == 7) {
                     alderman7Candidates.add(result.getKey().getName());
                     alderman7Percentages.add(result.getValue());
@@ -136,9 +142,33 @@ public class ResultsController {
             }
         }
 
+        for (Map.Entry<Measure, Double> result : allMeasurePercentages.entrySet()) {  //make dynamic?
+            if (result.getKey().getId() == 1) {
+                measure1.add("YES");
+                measure1.add("NO");
+                measure1Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure1Percentages.add(noVotes);
+            }
+            if (result.getKey().getId() == 2) {
+                measure2.add("YES");
+                measure2.add("NO");
+                measure2Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure2Percentages.add(noVotes);
+            }
+            if (result.getKey().getId() == 3) {
+                measure3.add("YES");
+                measure3.add("NO");
+                measure3Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure3Percentages.add(noVotes);
+            }
+        }
+
         //model.addAttribute("measureResults", allMeasurePercentages);
         //model.addAttribute("candidateResults", allCandidatePercentages);
-        model.addAttribute("mayoralCandidates", mayoralCandidates);
+        model.addAttribute("mayoralCandidates", mayoralCandidates);         //find a way to condense this list
         model.addAttribute("mayoralPercentages", mayoralPercentages);
         model.addAttribute("comptrollerCandidates", comptrollerCandidates);
         model.addAttribute("comptrollerPercentages", comptrollerPercentages);
@@ -146,8 +176,14 @@ public class ResultsController {
         model.addAttribute("alderman7Percentages", alderman7Percentages);
         model.addAttribute("alderman28Candidates", alderman28Candidates);
         model.addAttribute("alderman28Percentages", alderman28Percentages);
-        model.addAttribute("title", "Results");
+        model.addAttribute("measure1", measure1);
+        model.addAttribute("measure1Percentages", measure1Percentages);
+        model.addAttribute("measure2", measure2);
+        model.addAttribute("measure2Percentages", measure2Percentages);
+        model.addAttribute("measure3", measure3);
+        model.addAttribute("measure3Percentages", measure3Percentages);
 
+        model.addAttribute("title", "Results");
 
         return "results/view2";
 

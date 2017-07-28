@@ -21,6 +21,9 @@
           google.charts.setOnLoadCallback(drawComptrollerChart);
           google.charts.setOnLoadCallback(drawAlderman7Chart);
           google.charts.setOnLoadCallback(drawAlderman28Chart);
+          google.charts.setOnLoadCallback(drawMeasure1Chart);
+          google.charts.setOnLoadCallback(drawMeasure2Chart);
+          google.charts.setOnLoadCallback(drawMeasure3Chart);
 
           function drawMayoralChart() {
             var candidates = [[${mayoralCandidates}]];
@@ -90,6 +93,57 @@
             chart.draw(data, options);
           }
 
+          function drawMeasure1Chart() {
+            var candidates = [[${measure1}]];
+            var percentages = [[${measure1Percentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Measure');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Measure 1'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('measure1Chart'));
+            chart.draw(data, options);
+          }
+
+          function drawMeasure2Chart() {
+            var candidates = [[${measure2}]];
+            var percentages = [[${measure2Percentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Measure');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Measure 2'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('measure2Chart'));
+            chart.draw(data, options);
+          }
+
+          function drawMeasure3Chart() {
+            var candidates = [[${measure3}]];
+            var percentages = [[${measure3Percentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Measure');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Measure 3'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('measure3Chart'));
+            chart.draw(data, options);
+          }
+
         /*]]>*/
         </script>
 </head>
@@ -111,8 +165,22 @@
         </tr>
     </table>
 
+    <table class="columns">
+        <tr>
+            <td><div id="measure1Chart" style="border: 1px solid #ccc"></div></td>
+            <td><div id="measure2Chart" style="border: 1px solid #ccc"></div></td>
+        </tr>
+    </table>
+
+    <table class="columns">
+        <tr>
+            <td><div id="measure3Chart" style="border: 1px solid #ccc"></div></td>
+        </tr>
+    </table>
+
 
 <div th:replace="fragments :: footer"></div>
 </body>
 
 </html>
+
