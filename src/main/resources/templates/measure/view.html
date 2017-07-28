@@ -2,16 +2,35 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head">
 </head>
-<body>
+<body class="container">
 
 <nav th:replace="fragments :: navigation"></nav>
 
 <h1 th:text="${title}">Default Title</h1>
 
-<h1 th:text="${theCurrentUsername}"></h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="measure : ${measures}">
+            <td th:text="${measure.name}"></td>
+            <td th:text="${measure.description}"></td>
+        </tr>
+    </tbody>
+
+</table>
+
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>
 
 
-<table th:each="measure : ${measures}">
+<!--<table class="table table-striped"  th:each="measure : ${measures}">
 
     <tr>
         <th>Name</th>
@@ -23,8 +42,4 @@
         <td th:text="${measure.description}"></td>
     </tr>
 
-</table>
-
-<div th:replace="fragments :: footer"></div>
-</body>
-</html>
+</table>-->

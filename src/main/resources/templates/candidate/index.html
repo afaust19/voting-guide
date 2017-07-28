@@ -5,34 +5,67 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 <h1 th:text="${title}">Default Title</h1>
+<br/>
 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><a th:href="@{/candidates/viewAll(office = mayor)}">Mayor</a></th>
+        </tr>
+    </thead>
 
-<a th:href="@{/candidates/viewAll(office = mayor)}">Mayor</a>
+    <tbody>
+        <tr th:each="candidate : ${candidates}" th:if="${candidate.office} == 'mayor'">
+            <td><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></td>
+        </tr>
+    </tbody>
 
-    <div th:each="candidate : ${candidates}">
-        <span th:if="${candidate.office} == 'mayor'">
-            <a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a>
-        </span>
-    </div>
+</table>
 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><a th:href="@{/candidates/viewAll(office = comptroller)}">Comptroller</a></th>
+        </tr>
+    </thead>
 
-<a th:href="@{/candidates/viewAll(office = comptroller)}">Comptroller</a>
+    <tbody>
+        <tr th:each="candidate : ${candidates}" th:if="${candidate.office} == 'comptroller'">
+            <td><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></td>
+        </tr>
+    </tbody>
 
-    <div th:each="candidate : ${candidates}">
-        <span th:if="${candidate.office} == 'comptroller'">
-            <a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a>
-        </span>
-    </div>
+</table>
 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><a th:href="@{/candidates/viewAll(office = alderman)}">Alderman - Ward 7</a></th>
+        </tr>
+    </thead>
 
-<a th:href="@{/candidates/viewAll(office = alderman)}">Alderman</a>
+    <tbody>
+        <tr th:each="candidate : ${candidates}" th:if="${candidate.office} == 'alderman' and ${candidate.ward.wardNumber} == '7'">
+            <td><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></td>
+        </tr>
+    </tbody>
 
-    <div th:each="candidate : ${candidates}">
-        <span th:if="${candidate.office} == 'alderman'">
-            <a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a>
-        </span>
-    </div>
+</table>
 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><a th:href="@{/candidates/viewAll(office = alderman)}">Alderman - Ward 28</a></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr th:each="candidate : ${candidates}" th:if="${candidate.office} == 'alderman' and ${candidate.ward.wardNumber} == '28'">
+            <td><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></td>
+        </tr>
+    </tbody>
+
+</table>
 
 <div th:replace="fragments :: footer"></div>
 </body>
