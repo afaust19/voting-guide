@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<!--<head th:replace="fragments :: head"> Not able to use fragments and google api head for some reason?-->
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title th:text="${title}">Voting Guide</title>
+    <link th:href="@{/css/normalize.css}" rel="stylesheet" />
+    <link th:href="@{/css/votingguide.css}" rel="stylesheet" />
+    <script type="text/javascript" th:inline="javascript" th:src="@{/js/bootstrap.js}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+          /*<![CDATA[*/
+          google.charts.load('current', {'packages':['corechart']});
+
+          google.charts.setOnLoadCallback(drawMayoralChart);
+          google.charts.setOnLoadCallback(drawComptrollerChart);
+          google.charts.setOnLoadCallback(drawAlderman7Chart);
+          google.charts.setOnLoadCallback(drawAlderman28Chart);
+
+          function drawMayoralChart() {
+            var candidates = [[${mayoralCandidates}]];
+            var percentages = [[${mayoralPercentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Candidate');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Mayor'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('mayoralChart'));
+            chart.draw(data, options);
+          }
+
+          function drawComptrollerChart() {
+            var candidates = [[${comptrollerCandidates}]];
+            var percentages = [[${comptrollerPercentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Candidate');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Comptroller'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('comptrollerChart'));
+            chart.draw(data, options);
+          }
+
+          function drawAlderman7Chart() {
+            var candidates = [[${alderman7Candidates}]];
+            var percentages = [[${alderman7Percentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Candidate');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Alderman - Ward 7'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('alderman7Chart'));
+            chart.draw(data, options);
+          }
+
+          function drawAlderman28Chart() {
+            var candidates = [[${alderman28Candidates}]];
+            var percentages = [[${alderman28Percentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Candidate');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Alderman - Ward 28'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('alderman28Chart'));
+            chart.draw(data, options);
+          }
+
+        /*]]>*/
+        </script>
+</head>
+
+<body>
+    <nav th:replace="fragments :: navigation"></nav>
+
+    <table class="columns">
+        <tr>
+            <td><div id="mayoralChart" style="border: 1px solid #ccc"></div></td>
+            <td><div id="comptrollerChart" style="border: 1px solid #ccc"></div></td>
+        </tr>
+    </table>
+
+    <table class="columns">
+        <tr>
+            <td><div id="alderman7Chart" style="border: 1px solid #ccc"></div></td>
+            <td><div id="alderman28Chart" style="border: 1px solid #ccc"></div></td>
+        </tr>
+    </table>
+
+
+<div th:replace="fragments :: footer"></div>
+</body>
+
+</html>

@@ -1,17 +1,17 @@
 package com.faust.votingguide.controllers;
-import com.faust.votingguide.models.Ballot;
-import com.faust.votingguide.models.Candidate;
-import com.faust.votingguide.models.Measure;
-import com.faust.votingguide.models.Results;
+import com.faust.votingguide.models.*;
 import com.faust.votingguide.models.data.BallotDao;
 import com.faust.votingguide.models.data.CandidateDao;
 import com.faust.votingguide.models.data.MeasureDao;
+import com.faust.votingguide.models.data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +34,6 @@ public class ResultsController {
 
     @Autowired
     MeasureDao measureDao;
-
 
     static List<Ballot> ballots = new ArrayList<>();
 
@@ -106,22 +105,51 @@ public class ResultsController {
             allMeasurePercentages.put(result.getKey(), twoDecimal);
         }
 
-        List<String> chartCandidates = new ArrayList<>();  //make separate ArrayLists for the data points to get passed into view for google charts
-        List<Double> chartPercentages = new ArrayList<>();
+        List<String> mayoralCandidates = new ArrayList<>();  //make separate ArrayLists for the data points to get passed into view for google charts
+        List<String> comptrollerCandidates = new ArrayList<>();
+        List<String> alderman7Candidates = new ArrayList<>();
+        List<String> alderman28Candidates = new ArrayList<>();
+
+        List<Double> mayoralPercentages = new ArrayList<>();
+        List<Double> comptrollerPercentages = new ArrayList<>();
+        List<Double> alderman7Percentages = new ArrayList<>();
+        List<Double> alderman28Percentages = new ArrayList<>();
 
         for (Map.Entry<Candidate, Double> result : allCandidatePercentages.entrySet()) {
-            chartCandidates.add(result.getKey().getName());
-            chartPercentages.add(result.getValue());
+            if (result.getKey().getOffice().equals("mayor")) {
+                mayoralCandidates.add(result.getKey().getName());
+                mayoralPercentages.add(result.getValue());
+            }
+            if (result.getKey().getOffice().equals("comptroller")) {
+                comptrollerCandidates.add(result.getKey().getName());
+                comptrollerPercentages.add(result.getValue());
+            }
+            if (result.getKey().getOffice().equals("alderman")) {
+                if (result.getKey().getWard().getWardNumber() == 7) {
+                    alderman7Candidates.add(result.getKey().getName());
+                    alderman7Percentages.add(result.getValue());
+                }
+                if (result.getKey().getWard().getWardNumber() == 28) {
+                    alderman28Candidates.add(result.getKey().getName());
+                    alderman28Percentages.add(result.getValue());
+                }
+            }
         }
 
-        model.addAttribute("measureResults", allMeasurePercentages);
-        model.addAttribute("candidateResults", allCandidatePercentages);
-        model.addAttribute("chartCandidates", chartCandidates);
-        model.addAttribute("chartPercentages", chartPercentages);
+        //model.addAttribute("measureResults", allMeasurePercentages);
+        //model.addAttribute("candidateResults", allCandidatePercentages);
+        model.addAttribute("mayoralCandidates", mayoralCandidates);
+        model.addAttribute("mayoralPercentages", mayoralPercentages);
+        model.addAttribute("comptrollerCandidates", comptrollerCandidates);
+        model.addAttribute("comptrollerPercentages", comptrollerPercentages);
+        model.addAttribute("alderman7Candidates", alderman7Candidates);
+        model.addAttribute("alderman7Percentages", alderman7Percentages);
+        model.addAttribute("alderman28Candidates", alderman28Candidates);
+        model.addAttribute("alderman28Percentages", alderman28Percentages);
         model.addAttribute("title", "Results");
 
 
-        return "results/view";
+        return "results/view2";
 
     }
 }
