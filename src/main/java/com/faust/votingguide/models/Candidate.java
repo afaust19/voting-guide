@@ -3,6 +3,8 @@ package com.faust.votingguide.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 /**
@@ -40,6 +42,8 @@ public class Candidate {
 
     @NotNull
     private String incumbent;        //boolean instead?
+
+    private byte[] image;
 
     private int votes = 0;
 

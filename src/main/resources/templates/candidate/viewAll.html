@@ -6,51 +6,114 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="${title}">Default Title</h1>
+<h1 th:text="${'Candidates for ' + #strings.capitalize(title)}">Default Title</h1>
 
+<div class="container">
 
+    <div class="row">
 
-<table th:each="candidate : ${candidates}">
+        <div th:each="candidate : ${candidates}">
+            <div class="col-sm-6"> <!--change the width (6) depending on number of candidates?? works just fine like this-->
 
+                <table>
+                    <tr>
+                        <div class="table-responsive">
+                            <td>
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>Name</th>
+                                        <td th:text="${candidate.name}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Age</th>
+                                        <td th:text="${candidate.age}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Party</th>
+                                        <td th:text="${candidate.party}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Education</th>
+                                        <td th:text="${candidate.education}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Elected Offices</th>
+                                        <td th:text="${candidate.electedOffices}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Incumbent?</th>
+                                        <td th:text="${candidate.incumbent}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Website</th>
+                                        <td th:text="${candidate.website}"></td>
+                                    </tr>
+                                </table>
+
+                            </td>
+
+                        </div>
+                    </tr>
+
+                </table>
+
+            </div> <!--col-sm-6-->
+        </div> <!--candidates-->
+    </div> <!--row-->
+</div> <!--container
+
+<table>
     <tr>
-        <th>Name</th>
-        <td th:text="${candidate.name}"></td>
+        <div th:each="candidate : ${candidates}">
+            <div class="table-responsive">
+                <td>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Name</th>
+                            <td th:text="${candidate.name}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Age</th>
+                            <td th:text="${candidate.age}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Party</th>
+                            <td th:text="${candidate.party}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Education</th>
+                            <td th:text="${candidate.education}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Elected Offices</th>
+                            <td th:text="${candidate.electedOffices}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Incumbent?</th>
+                            <td th:text="${candidate.incumbent}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Website</th>
+                            <td th:text="${candidate.website}"></td>
+                        </tr>
+                    </table>
+                </td>
+            </div>
+        </div>
     </tr>
-
-    <tr>
-        <th>Age</th>
-        <td th:text="${candidate.age}"></td>
-    </tr>
-
-    <tr>
-        <th>Party</th>
-        <td th:text="${candidate.party}"></td>
-    </tr>
-
-    <tr>
-        <th>Education</th>
-        <td th:text="${candidate.education}"></td>
-    </tr>
-
-    <tr>
-        <th>Elected Offices</th>
-        <td th:text="${candidate.electedOffices}"></td>
-    </tr>
-
-    <tr>
-        <th>Incumbent?</th>
-        <td th:text="${candidate.incumbent}"></td>
-    </tr>
-
-    <tr>
-        <th>Website</th>
-        <td th:text="${candidate.website}"></td>
-    </tr>
-
-
-</table>
-
-<!--<form method="post" th:action="@{/candidates/compare(office = ${office})}" th:object="${candidates}" modelAttribute="candidatesToCompare">-->
+</table> -->
 
 <form method="post" th:action="@{/candidates/compare}" th:object="${candidates}" modelAttribute="candidatesToCompare">
 

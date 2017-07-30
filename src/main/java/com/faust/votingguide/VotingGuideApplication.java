@@ -1,5 +1,6 @@
 package com.faust.votingguide;
 
+import com.faust.votingguide.models.Results;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

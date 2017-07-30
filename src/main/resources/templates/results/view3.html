@@ -149,38 +149,73 @@
 </head>
 
 <body>
-    <nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navigation"></nav>
 
-    <table class="columns">
-        <tr>
-            <td><div id="mayoralChart" style="border: 1px solid #ccc"></div></td>
-            <td><div id="comptrollerChart" style="border: 1px solid #ccc"></div></td>
-        </tr>
-    </table>
+<div class="row">
+    <div class="col-md-12 text-left"> <!--fix later - align left-->
+        <h1 th:text="${title}"></h1>
+    </div>
+    <div class="clearfix"></div>
 
-    <table class="columns">
-        <tr>
-            <td><div id="alderman7Chart" style="border: 1px solid #ccc"></div></td>
-            <td><div id="alderman28Chart" style="border: 1px solid #ccc"></div></td>
-        </tr>
-    </table>
+    <div class="col-md-6">
+        <div id="mayoralChart" class="chart"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="comptrollerChart" class="chart"></div>
+    </div>
 
-    <table class="columns">
-        <tr>
-            <td><div id="measure1Chart" style="border: 1px solid #ccc"></div></td>
-            <td><div id="measure2Chart" style="border: 1px solid #ccc"></div></td>
-        </tr>
-    </table>
+    <div class="col-md-6">
+        <div id="alderman7Chart" class="chart"></div>
+    </div>
 
-    <table class="columns">
-        <tr>
-            <td><div id="measure3Chart" style="border: 1px solid #ccc"></div></td>
-        </tr>
-    </table>
+    <div class="col-md-6">
+        <div id="alderman28Chart" class="chart"></div>
+    </div>
+
+    <div class="col-md-6">
+        <div id="measure1Chart" class="chart"></div>
+    </div>
+
+    <div class="col-md-6">
+        <div id="measure2Chart" class="chart"></div>
+    </div>
+
+    <div class="col-md-6">
+        <div id="measure3Chart" class="chart"></div>
+    </div>
+</div>
+
+
+
+<!--<table>
+    <tr>
+        <td><div id="mayoralChart" style="border: 1px solid #ccc"></div></td>
+        <td><div id="comptrollerChart" style="border: 1px solid #ccc"></div></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td><div id="alderman7Chart" style="border: 1px solid #ccc"></div></td>
+        <td><div id="alderman28Chart" style="border: 1px solid #ccc"></div></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td><div id="measure1Chart" style="border: 1px solid #ccc"></div></td>
+        <td><div id="measure2Chart" style="border: 1px solid #ccc"></div></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td><div id="measure3Chart" style="border: 1px solid #ccc"></div></td>
+    </tr>
+</table>-->
 
 
 <div th:replace="fragments :: footer"></div>
 </body>
 
 </html>
-

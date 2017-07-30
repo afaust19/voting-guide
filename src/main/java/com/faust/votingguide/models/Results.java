@@ -1,198 +1,290 @@
 package com.faust.votingguide.models;
 
-import com.faust.votingguide.controllers.BallotController;
 import com.faust.votingguide.controllers.ResultsController;
-import com.faust.votingguide.models.data.BallotDao;
-import com.faust.votingguide.models.data.CandidateDao;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.springframework.stereotype.Service;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Created by afaust on 7/24/17.
+ * Created by afaust on 7/30/17.
  */
+@Service
+public class Results {
 
-//@Entity
-public class Results {       /*               //rename BallotData?                                                                                               //should not be persistent? since it changes constantly based on user votes
+    private static List<String> mayoralCandidates = new ArrayList<>();  //make separate ArrayLists for the data points to get passed into view for google charts
+    private static List<String> comptrollerCandidates = new ArrayList<>();
+    private static List<String> alderman7Candidates = new ArrayList<>();
+    private static List<String> alderman28Candidates = new ArrayList<>();
+    private static List<String> measure1 = new ArrayList<>();
+    private static List<String> measure2 = new ArrayList<>();
+    private static List<String> measure3 = new ArrayList<>();
 
-    @Id
-    @GeneratedValue
-    private int id;
+    private static List<Double> mayoralPercentages = new ArrayList<>();
+    private static List<Double> comptrollerPercentages = new ArrayList<>();
+    private static List<Double> alderman7Percentages = new ArrayList<>();
+    private static List<Double> alderman28Percentages = new ArrayList<>();
+    private static List<Double> measure1Percentages = new ArrayList<>();
+    private static List<Double> measure2Percentages = new ArrayList<>();
+    private static List<Double> measure3Percentages = new ArrayList<>();
 
-    // Fields
+    //@Autowired              //these do not autowire - why??
+    //BallotDao ballotDao;
 
-    private HashMap<Candidate, Double> allCandidatePercentages = new HashMap<>();
-    private HashMap<Measure, Double> allMeasurePercentages = new HashMap<>();
+    //@Autowired
+    //CandidateDao candidateDao;
 
-
-    public Results() {}
-
-    // Methods - put results calculations here - use ballot arraylist from above
-
-    public String updateResults() {                                                                                     //this should be called every time a user submits a ballot to the database (in ballotController)
-
-        List<Ballot> allBallots = new ArrayList<>();                                                                //lists all ballots that have been cast
-        List<Measure> allMeasures = new ArrayList<>();
-        List<Candidate> allCandidates = new ArrayList<>();
-
-        List<Candidate> selectedCandidates = new ArrayList<>();                                                          //lists all candidates that have been voted for
-        List<Measure> selectedMeasures = new ArrayList<>();
-        List<Integer> selectedCandidateIds = new ArrayList<>();
-        List<Integer> selectedMeasureIds = new ArrayList<>();//lists all measures that have been voted for
-
-        HashMap<Candidate, Integer> allCandidateVotes = new HashMap<>();
-        HashMap<Measure, Integer> allMeasureVotes = new HashMap<>();
-
-        allBallots.addAll(BallotController.getAllBallots());  //used instead of access DAO object from Results class - how?                                                          //fetches and saves a list of ballots from controller every time a user casts a ballot
-
-        allCandidates.addAll(BallotController.getAllCandidates());
-
-        allMeasures.addAll(BallotController.getAllMeasures());
+    //@Autowired
+    //MeasureDao measureDao;
 
 
-        for (Ballot completedBallot : allBallots) {
+    public static void calculateResults() {            //changes fields at top - no return value
 
-            selectedCandidates.addAll(completedBallot.getCandidates());
+        System.out.println("CANDIDATES BEFORE CLEAR (LINE 45): " + mayoralCandidates.size());
+        mayoralCandidates.clear();
+        comptrollerCandidates.clear();
+        alderman7Candidates.clear();
+        alderman28Candidates.clear();
+        measure1.clear();
+        measure2.clear();
+        measure3.clear();
+        mayoralPercentages.clear();
+        comptrollerPercentages.clear();
+        alderman7Percentages.clear();
+        alderman28Percentages.clear();
+        measure1Percentages.clear();
+        measure2Percentages.clear();
+        measure3Percentages.clear();
 
-            if (!completedBallot.getMeasures().isEmpty()) {
-                for (Measure measure : completedBallot.getMeasures()) {
-                    if (measure != null) {
-                        selectedMeasures.add(measure);
-                    }
-                }
-                                                                        //populates above list with all measures that have received votes
-            }
-        }
+        System.out.println("CANDIDATES AFTER CLEAR (LINE 61): " + mayoralCandidates.size());
 
+        ResultsController resultsController = new ResultsController();
 
+        List<Ballot> ballots = resultsController.getBallots();
+        List<Candidate> candidates = resultsController.getCandidates();
+        List<Measure> measures = resultsController.getMeasures();
 
-        for (Candidate selectedCandidate : selectedCandidates) {
-            selectedCandidateIds.add(selectedCandidate.getId());
-        }
+        HashMap<Candidate, Double> allCandidatePercentages = new HashMap<>();
+        HashMap<Measure, Double> allMeasurePercentages = new HashMap<>();
 
-        if (!selectedMeasures.isEmpty()) {
-            for (Measure selectedMeasure : selectedMeasures) {
-                selectedMeasureIds.add(selectedMeasure.getId());
-            }
-        }
-
-        for (Candidate candidate : allCandidates) {
-            if (selectedCandidateIds.contains(candidate.getId())) {
-                allCandidateVotes.put(candidate, Collections.frequency(selectedCandidateIds, candidate.getId()));
-            } else {
-                allCandidateVotes.put(candidate, 0);
-            }
-        }
-
-        if (!selectedMeasureIds.isEmpty()) {
-            for (Measure measure : allMeasures) {
-                if (selectedMeasureIds.contains(measure.getId())) {
-                    allMeasureVotes.put(measure, Collections.frequency(selectedMeasureIds, measure.getId()));
-                } else {
-                    allMeasureVotes.put(measure, 0);
-                }
-            }
-        }
-
-
-        // Calculate percentages for each Candidate
-
-
-        double totalNumberBallots = 0;
-
-        for (int i = 0; i < allBallots.size(); i++) {
-            totalNumberBallots += 1;
-        }
-
+        double totalNumberBallots = ballots.size();
         double totalNumberBallotsWard7 = 0;            //make this dynamic later
         double totalNumberBallotsWard28 = 0;
 
-        for (Ballot ballot : allBallots) {
+        for (Ballot ballot : ballots) {
+
             if (ballot.getUser().getWard().getWardNumber() == 7) {
                 totalNumberBallotsWard7 += 1;
             }
+
             if (ballot.getUser().getWard().getWardNumber() == 28) {
                 totalNumberBallotsWard28 += 1;
             }
         }
 
+        for (Candidate candidate : candidates) {
+            if (candidate.getOffice().equals("alderman")) {
 
-        for (Map.Entry<Candidate, Integer> entry : allCandidateVotes.entrySet()) {
-
-            if (entry.getKey().getOffice().equals("alderman")) {                        //if candidate is alderman
-
-                if (entry.getKey().getWard().getWardNumber() == 7) {                          //change this to dynamic loop later
-
-                    double percentage = (entry.getValue() / totalNumberBallotsWard7) * 100;
-                    allCandidatePercentages.put(entry.getKey(), percentage);
+                if (candidate.getWard().getWardNumber() == 7) {
+                    double percentage = (candidate.getVotes() / totalNumberBallotsWard7) * 100;
+                    allCandidatePercentages.put(candidate, percentage);
                 }
 
-                if (entry.getKey().getWard().getWardNumber() == 28) {
-                    double percentage = (entry.getValue() / totalNumberBallotsWard28) * 100;
-                    allCandidatePercentages.put(entry.getKey(), percentage);
+                if (candidate.getWard().getWardNumber() == 28) {
+                    double percentage = (candidate.getVotes() / totalNumberBallotsWard28) * 100;
+                    allCandidatePercentages.put(candidate, percentage);
                 }
+            }
 
-            } else {                                                                        //if candidate is mayor or comptroller
-                double percentage = (entry.getValue() / totalNumberBallots) * 100;
-                allCandidatePercentages.put(entry.getKey(), percentage);
+            if (candidate.getOffice().equals("mayor") || candidate.getOffice().equals("comptroller")) {
+
+                double percentage = (candidate.getVotes() / totalNumberBallots) * 100;
+                allCandidatePercentages.put(candidate, percentage);
             }
         }
 
-        // Calculate percentages for each measure - should be yes/no
+        System.out.println("CANDIDATES LINE 108: " + mayoralCandidates.size());
 
-
-        for (Map.Entry<Measure, Integer> entry : allMeasureVotes.entrySet()) {
-            double percentage = (entry.getValue() / totalNumberBallots) * 100;
-            allMeasurePercentages.put(entry.getKey(), percentage);
-
+        for (Measure measure : measures) {
+            double percentage = (measure.getVotes() / totalNumberBallots) * 100;
+            allMeasurePercentages.put(measure, percentage);
         }
 
+        DecimalFormat newFormat = new DecimalFormat("#.#");                        //rounds the percentage 1 decimal place
 
-        DecimalFormat newFormat = new DecimalFormat("#.##");                        //rounds the percentage 2 decimal places
-
-        for (Map.Entry<Candidate, Double> result : allCandidatePercentages.entrySet()){
-            double twoDecimal = Double.valueOf(newFormat.format(result.getValue()));
-            allCandidatePercentages.put(result.getKey(), twoDecimal);
+        for (Map.Entry<Candidate, Double> result : allCandidatePercentages.entrySet()) {
+            double oneDecimal = Double.valueOf(newFormat.format(result.getValue()));
+            allCandidatePercentages.put(result.getKey(), oneDecimal);
         }
 
-        for (Map.Entry<Measure, Double> result : allMeasurePercentages.entrySet()){
-            double twoDecimal = Double.valueOf(newFormat.format(result.getValue()));
-            allMeasurePercentages.put(result.getKey(), twoDecimal);
+        for (Map.Entry<Measure, Double> result : allMeasurePercentages.entrySet()) {
+            double oneDecimal = Double.valueOf(newFormat.format(result.getValue()));
+            allMeasurePercentages.put(result.getKey(), oneDecimal);
         }
 
-            return "";
+        System.out.println("CANDIDATES LINE 127: " + mayoralCandidates.size());
 
+        for (Map.Entry<Candidate, Double> result : allCandidatePercentages.entrySet()) {
+            if (result.getKey().getOffice().equals("mayor")) {
+                mayoralCandidates.add(result.getKey().getName());
+                mayoralPercentages.add(result.getValue());
+            }
+            System.out.println("CANDIDATES LINE 134: " + mayoralCandidates.size());
+
+            if (result.getKey().getOffice().equals("comptroller")) {
+                comptrollerCandidates.add(result.getKey().getName());
+                comptrollerPercentages.add(result.getValue());
+            }
+            if (result.getKey().getOffice().equals("alderman")) {       //make dynamic?
+                if (result.getKey().getWard().getWardNumber() == 7) {
+                    alderman7Candidates.add(result.getKey().getName());
+                    alderman7Percentages.add(result.getValue());
+                }
+                if (result.getKey().getWard().getWardNumber() == 28) {
+                    alderman28Candidates.add(result.getKey().getName());
+                    alderman28Percentages.add(result.getValue());
+                }
+            }
+        }
+
+        System.out.println("CANDIDATES LINE 150: " + mayoralCandidates.size());
+
+        for (Map.Entry<Measure, Double> result : allMeasurePercentages.entrySet()) {  //make dynamic?
+            if (result.getKey().getId() == 1) {
+                measure1.add("YES");
+                measure1.add("NO");
+                measure1Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure1Percentages.add(noVotes);
+            }
+            if (result.getKey().getId() == 2) {
+                measure2.add("YES");
+                measure2.add("NO");
+                measure2Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure2Percentages.add(noVotes);
+            }
+            if (result.getKey().getId() == 3) {
+                measure3.add("YES");
+                measure3.add("NO");
+                measure3Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure3Percentages.add(noVotes);
+            }
+        }
     }
 
-
-    // Getters and Setters
-
-
-    public int getId() {
-        return id;
+    public static List<String> getMayoralCandidates() {
+        return mayoralCandidates;
     }
 
-    public HashMap<Candidate, Double> getAllCandidatePercentages() {
-        return allCandidatePercentages;
+    public static void setMayoralCandidates(List<String> mayoralCandidates) {
+        Results.mayoralCandidates = mayoralCandidates;
     }
 
-    public void setAllCandidatePercentages(HashMap<Candidate, Double> allCandidatePercentages) {
-        this.allCandidatePercentages = allCandidatePercentages;
+    public static List<String> getComptrollerCandidates() {
+        return comptrollerCandidates;
     }
 
-    public HashMap<Measure, Double> getAllMeasurePercentages() {
-        return allMeasurePercentages;
+    public static void setComptrollerCandidates(List<String> comptrollerCandidates) {
+        Results.comptrollerCandidates = comptrollerCandidates;
     }
 
-    public void setAllMeasurePercentages(HashMap<Measure, Double> allMeasurePercentages) {
-        this.allMeasurePercentages = allMeasurePercentages;
+    public static List<String> getAlderman7Candidates() {
+        return alderman7Candidates;
     }
 
-    */
+    public static void setAlderman7Candidates(List<String> alderman7Candidates) {
+        Results.alderman7Candidates = alderman7Candidates;
+    }
+
+    public static List<String> getAlderman28Candidates() {
+        return alderman28Candidates;
+    }
+
+    public static void setAlderman28Candidates(List<String> alderman28Candidates) {
+        Results.alderman28Candidates = alderman28Candidates;
+    }
+
+    public static List<String> getMeasure1() {
+        return measure1;
+    }
+
+    public static void setMeasure1(List<String> measure1) {
+        Results.measure1 = measure1;
+    }
+
+    public static List<String> getMeasure2() {
+        return measure2;
+    }
+
+    public static void setMeasure2(List<String> measure2) {
+        Results.measure2 = measure2;
+    }
+
+    public static List<String> getMeasure3() {
+        return measure3;
+    }
+
+    public static void setMeasure3(List<String> measure3) {
+        Results.measure3 = measure3;
+    }
+
+    public static List<Double> getMayoralPercentages() {
+        return mayoralPercentages;
+    }
+
+    public static void setMayoralPercentages(List<Double> mayoralPercentages) {
+        Results.mayoralPercentages = mayoralPercentages;
+    }
+
+    public static List<Double> getComptrollerPercentages() {
+        return comptrollerPercentages;
+    }
+
+    public static void setComptrollerPercentages(List<Double> comptrollerPercentages) {
+        Results.comptrollerPercentages = comptrollerPercentages;
+    }
+
+    public static List<Double> getAlderman7Percentages() {
+        return alderman7Percentages;
+    }
+
+    public static void setAlderman7Percentages(List<Double> alderman7Percentages) {
+        Results.alderman7Percentages = alderman7Percentages;
+    }
+
+    public static List<Double> getAlderman28Percentages() {
+        return alderman28Percentages;
+    }
+
+    public static void setAlderman28Percentages(List<Double> alderman28Percentages) {
+        Results.alderman28Percentages = alderman28Percentages;
+    }
+
+    public static List<Double> getMeasure1Percentages() {
+        return measure1Percentages;
+    }
+
+    public static void setMeasure1Percentages(List<Double> measure1Percentages) {
+        Results.measure1Percentages = measure1Percentages;
+    }
+
+    public static List<Double> getMeasure2Percentages() {
+        return measure2Percentages;
+    }
+
+    public static void setMeasure2Percentages(List<Double> measure2Percentages) {
+        Results.measure2Percentages = measure2Percentages;
+    }
+
+    public static List<Double> getMeasure3Percentages() {
+        return measure3Percentages;
+    }
+
+    public static void setMeasure3Percentages(List<Double> measure3Percentages) {
+        Results.measure3Percentages = measure3Percentages;
+    }
 }
-
-

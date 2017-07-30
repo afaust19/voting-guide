@@ -2,6 +2,7 @@ package com.faust.votingguide.models.data;
 
 import com.faust.votingguide.models.Ballot;
 import com.faust.votingguide.models.Candidate;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
