@@ -1,10 +1,9 @@
 package com.faust.votingguide.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.xml.soap.Text;
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -21,17 +20,27 @@ public class Measure {
     private String name;
 
     @NotNull
-    private String description;
+    private String passingCriteria;
+
+    @NotNull
+    @Column(columnDefinition = "TEXT")
+    private String ballotWording;
+
+    @NotNull
+    @Column(columnDefinition = "TEXT")
+    private String summary;
 
     private int votes = 0;
 
     @ManyToMany(mappedBy = "measures")
     private List<Ballot> ballots;
 
-    public Measure(int id, String name, String description, int votes) {
+    public Measure(int id, String name, String passingCriteria, String ballotWording, String summary, int votes) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.passingCriteria = passingCriteria;
+        this.ballotWording = ballotWording;
+        this.summary = summary;
         this.votes = votes;             //marks all measures as "yes" by default, changed once the measure gets put on the user's ballot
     }
 
@@ -55,8 +64,16 @@ public class Measure {
         this.votes = votes;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPassingCriteria() {
+        return passingCriteria;
+    }
+
+    public String getBallotWording() {
+        return ballotWording;
+    }
+
+    public String getSummary() {
+        return summary;
     }
 
     public List<Ballot> getBallots() {

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="${title}">Default Title</h1>
+
+<br/>
+
+<table class="table table-striped">
+        <tr th:each="measure : ${measures}">
+            <td><a th:href="@{/measures/view(measure_id=${measure.id})}" th:text="${measure.name}"></a></td>
+        </tr>
+
+</table>
+
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>
+
+

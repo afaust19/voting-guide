@@ -1,32 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
+<head th:replace="fragments :: head">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
 </head>
 <body>
 
 <nav th:replace="fragments :: navigation"></nav>
 
 <h1 th:text="${title}">Default Title</h1>
+<br/>
 
+<div class="container">
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="measure : ${measures}">
-            <td th:text="${measure.name}"></td>
-            <td th:text="${measure.description}"></td>
-        </tr>
-    </tbody>
+    <div class="row">
 
-</table>
+        <div th:object="${measure}">
+            <div class="col-sm-12"> <!--change the width (6) depending on number of candidates?? works just fine like this-->
+
+                <table>
+                    <tr>
+                        <div class="table-responsive">
+                            <td>
+                                <table class="table table-striped">
+
+                                    <tr>
+                                        <th>Name</th>
+                                        <td th:text="*{name}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Passing Criteria</th>
+                                        <td colspan="2" th:text="*{passingCriteria}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Ballot Wording</th>
+                                        <td th:text="*{ballotWording}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Summary</th>
+                                        <td th:text="*{summary}"></td>
+                                    </tr>
+
+                                </table>
+
+                            </td>
+
+                        </div>
+                    </tr>
+
+                </table>
+
+            </div> <!--col-sm-6-->
+        </div> <!--candidates-->
+    </div> <!--row-->
+</div> <!--container-->
+
 
 <div th:replace="fragments :: footer"></div>
 </body>
 </html>
-
-
