@@ -20,7 +20,7 @@
           google.charts.setOnLoadCallback(drawMayoralChart);
           google.charts.setOnLoadCallback(drawComptrollerChart);
           google.charts.setOnLoadCallback(drawAlderman7Chart);
-          google.charts.setOnLoadCallback(drawAlderman28Chart);
+          google.charts.setOnLoadCallback(drawAlderman9Chart);
           google.charts.setOnLoadCallback(drawMeasure1Chart);
           google.charts.setOnLoadCallback(drawMeasure2Chart);
           google.charts.setOnLoadCallback(drawMeasure3Chart);
@@ -76,9 +76,9 @@
             chart.draw(data, options);
           }
 
-          function drawAlderman28Chart() {
-            var candidates = [[${alderman28Candidates}]];
-            var percentages = [[${alderman28Percentages}]];
+          function drawAlderman9Chart() {
+            var candidates = [[${alderman9Candidates}]];
+            var percentages = [[${alderman9Percentages}]];
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Candidate');
             data.addColumn('number','Percentage');
@@ -87,9 +87,9 @@
                 data.addRow([candidates[i], percentages[i]]);
             }
 
-            var options = {title: 'Alderman - Ward 28'}
+            var options = {title: 'Alderman - Ward 9'}
 
-            var chart = new google.visualization.PieChart(document.getElementById('alderman28Chart'));
+            var chart = new google.visualization.PieChart(document.getElementById('alderman9Chart'));
             chart.draw(data, options);
           }
 
@@ -152,7 +152,7 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <div class="row">
-    <div class="col-md-12 text-left"> <!--fix later - align left-->
+    <div class="col-md-12 text-center"> <!--fix later - align left-->
         <h1 th:text="${title}"></h1>
     </div>
     <div class="clearfix"></div>
@@ -169,7 +169,7 @@
     </div>
 
     <div class="col-md-6">
-        <div id="alderman28Chart" class="chart"></div>
+        <div id="alderman9Chart" class="chart"></div>
     </div>
 
     <div class="col-md-6">

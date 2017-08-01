@@ -64,16 +64,13 @@ public class ResultsController {
         Results.calculateResults();             //calls on Results class to run static method
 
         model.addAttribute("mayoralCandidates", Results.getMayoralCandidates());        //find a way to condense this list
-
-        System.out.println("END RESULTS CONTROLLER: " + Results.getMayoralCandidates().size());
-
         model.addAttribute("mayoralPercentages", Results.getMayoralPercentages());
         model.addAttribute("comptrollerCandidates", Results.getComptrollerCandidates());
         model.addAttribute("comptrollerPercentages", Results.getComptrollerPercentages());
         model.addAttribute("alderman7Candidates", Results.getAlderman7Candidates());
         model.addAttribute("alderman7Percentages", Results.getAlderman7Percentages());
-        model.addAttribute("alderman28Candidates", Results.getAlderman28Candidates());
-        model.addAttribute("alderman28Percentages", Results.getAlderman28Percentages());
+        model.addAttribute("alderman9Candidates", Results.getAlderman9Candidates());
+        model.addAttribute("alderman9Percentages", Results.getAlderman9Percentages());
         model.addAttribute("measure1", Results.getMeasure1());
         model.addAttribute("measure1Percentages", Results.getMeasure1Percentages());
         model.addAttribute("measure2", Results.getMeasure2());

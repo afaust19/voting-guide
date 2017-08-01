@@ -3,21 +3,14 @@ package com.faust.votingguide.controllers;
 import com.faust.votingguide.models.*;
 import com.faust.votingguide.models.data.*;
 import com.faust.votingguide.models.forms.BallotForm;
-
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
-import org.dom4j.bean.BeanAttributeList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-
 import javax.servlet.http.Cookie;
-
 import java.util.ArrayList;
 import java.util.List;
 

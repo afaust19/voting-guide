@@ -40,7 +40,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th><a th:href="@{/candidates/viewAll(office = alderman)}">Alderman - Ward 7</a></th>
+            <th><a th:href="@{/candidates/viewAll(office = alderman, ward = 7)}">Alderman - Ward 7</a></th>
         </tr>
     </thead>
 
@@ -55,12 +55,12 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th><a th:href="@{/candidates/viewAll(office = alderman)}">Alderman - Ward 28</a></th>
+            <th><a th:href="@{/candidates/viewAll(office = alderman, ward = 9)}">Alderman - Ward 9</a></th>
         </tr>
     </thead>
 
     <tbody>
-        <tr th:each="candidate : ${candidates}" th:if="${candidate.office} == 'alderman' and ${candidate.ward.wardNumber} == '28'">
+        <tr th:each="candidate : ${candidates}" th:if="${candidate.office} == 'alderman' and ${candidate.ward.wardNumber} == '9'">
             <td><a th:href="@{/candidates/view(candidate_id=${candidate.id})}" th:text="${candidate.name}"></a></td>
         </tr>
     </tbody>

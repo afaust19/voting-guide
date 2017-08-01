@@ -20,6 +20,11 @@
                         <div class="table-responsive">
                             <td>
                                 <table class="table table-striped">
+
+                                    <tr> <!--make this row span two columns-->
+                                        <td colspan="2"><img alt="Image" th:src="@{image/} + ${candidate.id}" class="img-responsive"/></td>
+                                    </tr>
+
                                     <tr>
                                         <th>Name</th>
                                         <td th:text="${candidate.name}"></td>
@@ -66,54 +71,8 @@
             </div> <!--col-sm-6-->
         </div> <!--candidates-->
     </div> <!--row-->
-</div> <!--container
+</div> <!--container-->
 
-<table>
-    <tr>
-        <div th:each="candidate : ${candidates}">
-            <div class="table-responsive">
-                <td>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Name</th>
-                            <td th:text="${candidate.name}"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Age</th>
-                            <td th:text="${candidate.age}"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Party</th>
-                            <td th:text="${candidate.party}"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Education</th>
-                            <td th:text="${candidate.education}"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Elected Offices</th>
-                            <td th:text="${candidate.electedOffices}"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Incumbent?</th>
-                            <td th:text="${candidate.incumbent}"></td>
-                        </tr>
-
-                        <tr>
-                            <th>Website</th>
-                            <td th:text="${candidate.website}"></td>
-                        </tr>
-                    </table>
-                </td>
-            </div>
-        </div>
-    </tr>
-</table> -->
 
 <form method="post" th:action="@{/candidates/compare}" th:object="${candidates}" modelAttribute="candidatesToCompare">
 

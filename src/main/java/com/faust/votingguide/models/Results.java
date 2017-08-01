@@ -17,7 +17,7 @@ public class Results {
     private static List<String> mayoralCandidates = new ArrayList<>();  //make separate ArrayLists for the data points to get passed into view for google charts
     private static List<String> comptrollerCandidates = new ArrayList<>();
     private static List<String> alderman7Candidates = new ArrayList<>();
-    private static List<String> alderman28Candidates = new ArrayList<>();
+    private static List<String> alderman9Candidates = new ArrayList<>();
     private static List<String> measure1 = new ArrayList<>();
     private static List<String> measure2 = new ArrayList<>();
     private static List<String> measure3 = new ArrayList<>();
@@ -25,7 +25,7 @@ public class Results {
     private static List<Double> mayoralPercentages = new ArrayList<>();
     private static List<Double> comptrollerPercentages = new ArrayList<>();
     private static List<Double> alderman7Percentages = new ArrayList<>();
-    private static List<Double> alderman28Percentages = new ArrayList<>();
+    private static List<Double> alderman9Percentages = new ArrayList<>();
     private static List<Double> measure1Percentages = new ArrayList<>();
     private static List<Double> measure2Percentages = new ArrayList<>();
     private static List<Double> measure3Percentages = new ArrayList<>();
@@ -42,23 +42,20 @@ public class Results {
 
     public static void calculateResults() {            //changes fields at top - no return value
 
-        System.out.println("CANDIDATES BEFORE CLEAR (LINE 45): " + mayoralCandidates.size());
         mayoralCandidates.clear();
         comptrollerCandidates.clear();
         alderman7Candidates.clear();
-        alderman28Candidates.clear();
+        alderman9Candidates.clear();
         measure1.clear();
         measure2.clear();
         measure3.clear();
         mayoralPercentages.clear();
         comptrollerPercentages.clear();
         alderman7Percentages.clear();
-        alderman28Percentages.clear();
+        alderman9Percentages.clear();
         measure1Percentages.clear();
         measure2Percentages.clear();
         measure3Percentages.clear();
-
-        System.out.println("CANDIDATES AFTER CLEAR (LINE 61): " + mayoralCandidates.size());
 
         ResultsController resultsController = new ResultsController();
 
@@ -71,7 +68,7 @@ public class Results {
 
         double totalNumberBallots = ballots.size();
         double totalNumberBallotsWard7 = 0;            //make this dynamic later
-        double totalNumberBallotsWard28 = 0;
+        double totalNumberBallotsWard9 = 0;
 
         for (Ballot ballot : ballots) {
 
@@ -79,8 +76,8 @@ public class Results {
                 totalNumberBallotsWard7 += 1;
             }
 
-            if (ballot.getUser().getWard().getWardNumber() == 28) {
-                totalNumberBallotsWard28 += 1;
+            if (ballot.getUser().getWard().getWardNumber() == 9) {
+                totalNumberBallotsWard9 += 1;
             }
         }
 
@@ -92,8 +89,8 @@ public class Results {
                     allCandidatePercentages.put(candidate, percentage);
                 }
 
-                if (candidate.getWard().getWardNumber() == 28) {
-                    double percentage = (candidate.getVotes() / totalNumberBallotsWard28) * 100;
+                if (candidate.getWard().getWardNumber() == 9) {
+                    double percentage = (candidate.getVotes() / totalNumberBallotsWard9) * 100;
                     allCandidatePercentages.put(candidate, percentage);
                 }
             }
@@ -105,7 +102,6 @@ public class Results {
             }
         }
 
-        System.out.println("CANDIDATES LINE 108: " + mayoralCandidates.size());
 
         for (Measure measure : measures) {
             double percentage = (measure.getVotes() / totalNumberBallots) * 100;
@@ -124,14 +120,12 @@ public class Results {
             allMeasurePercentages.put(result.getKey(), oneDecimal);
         }
 
-        System.out.println("CANDIDATES LINE 127: " + mayoralCandidates.size());
 
         for (Map.Entry<Candidate, Double> result : allCandidatePercentages.entrySet()) {
             if (result.getKey().getOffice().equals("mayor")) {
                 mayoralCandidates.add(result.getKey().getName());
                 mayoralPercentages.add(result.getValue());
             }
-            System.out.println("CANDIDATES LINE 134: " + mayoralCandidates.size());
 
             if (result.getKey().getOffice().equals("comptroller")) {
                 comptrollerCandidates.add(result.getKey().getName());
@@ -142,14 +136,12 @@ public class Results {
                     alderman7Candidates.add(result.getKey().getName());
                     alderman7Percentages.add(result.getValue());
                 }
-                if (result.getKey().getWard().getWardNumber() == 28) {
-                    alderman28Candidates.add(result.getKey().getName());
-                    alderman28Percentages.add(result.getValue());
+                if (result.getKey().getWard().getWardNumber() == 9) {
+                    alderman9Candidates.add(result.getKey().getName());
+                    alderman9Percentages.add(result.getValue());
                 }
             }
         }
-
-        System.out.println("CANDIDATES LINE 150: " + mayoralCandidates.size());
 
         for (Map.Entry<Measure, Double> result : allMeasurePercentages.entrySet()) {  //make dynamic?
             if (result.getKey().getId() == 1) {
@@ -200,12 +192,12 @@ public class Results {
         Results.alderman7Candidates = alderman7Candidates;
     }
 
-    public static List<String> getAlderman28Candidates() {
-        return alderman28Candidates;
+    public static List<String> getAlderman9Candidates() {
+        return alderman9Candidates;
     }
 
-    public static void setAlderman28Candidates(List<String> alderman28Candidates) {
-        Results.alderman28Candidates = alderman28Candidates;
+    public static void setAlderman9Candidates(List<String> alderman28Candidates) {
+        Results.alderman9Candidates = alderman28Candidates;
     }
 
     public static List<String> getMeasure1() {
@@ -256,12 +248,12 @@ public class Results {
         Results.alderman7Percentages = alderman7Percentages;
     }
 
-    public static List<Double> getAlderman28Percentages() {
-        return alderman28Percentages;
+    public static List<Double> getAlderman9Percentages() {
+        return alderman9Percentages;
     }
 
-    public static void setAlderman28Percentages(List<Double> alderman28Percentages) {
-        Results.alderman28Percentages = alderman28Percentages;
+    public static void setAlderman9Percentages(List<Double> alderman28Percentages) {
+        Results.alderman9Percentages = alderman28Percentages;
     }
 
     public static List<Double> getMeasure1Percentages() {

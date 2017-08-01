@@ -43,6 +43,7 @@ public class Candidate {
     @NotNull
     private String incumbent;        //boolean instead?
 
+    @Column(length=16777218)
     private byte[] image;
 
     private int votes = 0;
@@ -133,4 +134,11 @@ public class Candidate {
         this.ballots = ballots;
     }
 
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 }

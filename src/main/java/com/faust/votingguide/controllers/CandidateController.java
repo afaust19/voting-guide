@@ -4,14 +4,15 @@ import com.faust.votingguide.models.Candidate;
 import com.faust.votingguide.models.data.CandidateDao;
 import com.faust.votingguide.models.forms.CompareForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 /**
@@ -33,26 +34,43 @@ public class CandidateController {
         return "candidate/index";
     }
 
+    @RequestMapping(value = "image/{imageName}")
+    @ResponseBody
+    public byte[] getImage(@PathVariable(value = "imageName") String imageName) throws IOException {
+
+        File serverFile = new File("/Users/afaust/Desktop/candidatePics/" + imageName + ".jpg");
+
+        return Files.readAllBytes(serverFile.toPath());
+    }
+
+
     @RequestMapping(value = "view", method = RequestMethod.GET)         //handler for viewing one candidate (use id in url to populate view)
     public String viewOne(Model model, @RequestParam int candidate_id) {
         Candidate candidate = candidateDao.findOne(candidate_id);
         model.addAttribute("candidate", candidate);
+        model.addAttribute("title", candidate.getName());
         return "candidate/viewOne";
     }
 
     @RequestMapping(value = "viewAll", method = RequestMethod.GET)
-    public String viewAll(Model model, @RequestParam String office) {
+    public String viewAll(Model model, @RequestParam String office, @RequestParam(required = false) Integer ward) {
 
         ArrayList<Candidate> candidateList = new ArrayList<>();
 
         for (Candidate candidate : candidateDao.findAll()) {
             if (candidate.getOffice().equals(office)) {
-                candidateList.add(candidate);
-                model.addAttribute("office", office);
-                model.addAttribute("candidates", candidateList);
+                if (candidate.getWard() == null) {
+                    candidateList.add(candidate);
+                    model.addAttribute("candidates", candidateList);
+                    model.addAttribute("title", office); //capitalize string
+                } else if (candidate.getWard().getWardNumber() == ward) {
+                    candidateList.add(candidate);
+                    model.addAttribute("candidates", candidateList);
+                    model.addAttribute("title", office + " (Ward " + ward + ")");
+                }
+
             }
         }
-        model.addAttribute("title", office); //capitalize string
         return "candidate/viewAll";
     }
 
@@ -60,7 +78,7 @@ public class CandidateController {
     public String compare(@ModelAttribute("candidatesToCompare") @Valid CompareForm CandidatesToCompare, Model model) { //empty objects? how to bind two objects at once?
 
         model.addAttribute("candidates", CandidatesToCompare);
-        model.addAttribute("title", "Put Office here");
+        model.addAttribute("title", "Compare Candidates for " + CandidatesToCompare.getCompare1().getOffice());
 
         return "candidate/compare";
     }
