@@ -15,3 +15,7 @@ footer {
     width: 100%;
     min-height: 450px;
 }
+
+.img-responsive {
+    height: 65%;
+}

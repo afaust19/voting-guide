@@ -1,13 +1,10 @@
 package com.faust.votingguide.controllers;
 
 
-import com.faust.votingguide.models.Ballot;
-import com.faust.votingguide.models.Candidate;
-import com.faust.votingguide.models.Measure;
+import com.faust.votingguide.models.*;
 import com.faust.votingguide.models.data.BallotDao;
 import com.faust.votingguide.models.data.CandidateDao;
 import com.faust.votingguide.models.data.MeasureDao;
-import com.faust.votingguide.models.Results;
 import javafx.concurrent.WorkerStateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,6 +42,7 @@ public class ResultsController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String displayResults(Model model) {
 
+
         ballots.clear();
         candidates.clear();
         measures.clear();
@@ -77,6 +75,13 @@ public class ResultsController {
         model.addAttribute("measure2Percentages", Results.getMeasure2Percentages());
         model.addAttribute("measure3", Results.getMeasure3());
         model.addAttribute("measure3Percentages", Results.getMeasure3Percentages());
+        model.addAttribute("measure4", Results.getMeasure4());
+        model.addAttribute("measure4Percentages", Results.getMeasure4Percentages());
+        model.addAttribute("measure5", Results.getMeasure5());
+        model.addAttribute("measure5Percentages", Results.getMeasure5Percentages());
+        model.addAttribute("measure6", Results.getMeasure6());
+        model.addAttribute("measure6Percentages", Results.getMeasure6Percentages());
+
 
         model.addAttribute("title", "Election Results");
         return "results/view3";
@@ -105,5 +110,17 @@ public class ResultsController {
 
     public static void setMeasures(List<Measure> measures) {
         ResultsController.measures = measures;
+    }
+
+    public void setBallotDao(BallotDao ballotDao) {
+        this.ballotDao = ballotDao;
+    }
+
+    public void setCandidateDao(CandidateDao candidateDao) {
+        this.candidateDao = candidateDao;
+    }
+
+    public void setMeasureDao(MeasureDao measureDao) {
+        this.measureDao = measureDao;
     }
 }

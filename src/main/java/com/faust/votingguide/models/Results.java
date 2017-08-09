@@ -1,6 +1,10 @@
 package com.faust.votingguide.models;
 
 import com.faust.votingguide.controllers.ResultsController;
+import com.faust.votingguide.models.data.BallotDao;
+import com.faust.votingguide.models.data.CandidateDao;
+import com.faust.votingguide.models.data.MeasureDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -21,6 +25,9 @@ public class Results {
     private static List<String> measure1 = new ArrayList<>();
     private static List<String> measure2 = new ArrayList<>();
     private static List<String> measure3 = new ArrayList<>();
+    private static List<String> measure4 = new ArrayList<>();
+    private static List<String> measure5 = new ArrayList<>();
+    private static List<String> measure6 = new ArrayList<>();
 
     private static List<Double> mayoralPercentages = new ArrayList<>();
     private static List<Double> comptrollerPercentages = new ArrayList<>();
@@ -29,15 +36,18 @@ public class Results {
     private static List<Double> measure1Percentages = new ArrayList<>();
     private static List<Double> measure2Percentages = new ArrayList<>();
     private static List<Double> measure3Percentages = new ArrayList<>();
+    private static List<Double> measure4Percentages = new ArrayList<>();
+    private static List<Double> measure5Percentages = new ArrayList<>();
+    private static List<Double> measure6Percentages = new ArrayList<>();
 
-    //@Autowired              //these do not autowire - why??
-    //BallotDao ballotDao;
+    @Autowired              //these do not autowire - why??
+    BallotDao ballotDao;
 
-    //@Autowired
-    //CandidateDao candidateDao;
+    @Autowired
+    CandidateDao candidateDao;
 
-    //@Autowired
-    //MeasureDao measureDao;
+    @Autowired
+    MeasureDao measureDao;
 
 
     public static void calculateResults() {            //changes fields at top - no return value
@@ -49,6 +59,9 @@ public class Results {
         measure1.clear();
         measure2.clear();
         measure3.clear();
+        measure4.clear();
+        measure5.clear();
+        measure6.clear();
         mayoralPercentages.clear();
         comptrollerPercentages.clear();
         alderman7Percentages.clear();
@@ -56,6 +69,9 @@ public class Results {
         measure1Percentages.clear();
         measure2Percentages.clear();
         measure3Percentages.clear();
+        measure4Percentages.clear();
+        measure5Percentages.clear();
+        measure6Percentages.clear();
 
         ResultsController resultsController = new ResultsController();
 
@@ -165,6 +181,30 @@ public class Results {
                 double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
                 measure3Percentages.add(noVotes);
             }
+
+            if (result.getKey().getId() == 4) {
+                measure4.add("YES");
+                measure4.add("NO");
+                measure4Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure4Percentages.add(noVotes);
+            }
+
+            if (result.getKey().getId() == 5) {
+                measure5.add("YES");
+                measure5.add("NO");
+                measure5Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure5Percentages.add(noVotes);
+            }
+
+            if (result.getKey().getId() == 6) {
+                measure6.add("YES");
+                measure6.add("NO");
+                measure6Percentages.add(result.getValue()); //percentage of "YES" votes
+                double noVotes = 100 - (result.getValue()); //percentage of "NO" votes
+                measure6Percentages.add(noVotes);
+            }
         }
     }
 
@@ -224,6 +264,30 @@ public class Results {
         Results.measure3 = measure3;
     }
 
+    public static List<String> getMeasure4() {
+        return measure4;
+    }
+
+    public static void setMeasure4(List<String> measure4) {
+        Results.measure4 = measure4;
+    }
+
+    public static List<String> getMeasure5() {
+        return measure5;
+    }
+
+    public static void setMeasure5(List<String> measure5) {
+        Results.measure5 = measure5;
+    }
+
+    public static List<String> getMeasure6() {
+        return measure6;
+    }
+
+    public static void setMeasure6(List<String> measure6) {
+        Results.measure6 = measure6;
+    }
+
     public static List<Double> getMayoralPercentages() {
         return mayoralPercentages;
     }
@@ -278,5 +342,29 @@ public class Results {
 
     public static void setMeasure3Percentages(List<Double> measure3Percentages) {
         Results.measure3Percentages = measure3Percentages;
+    }
+
+    public static List<Double> getMeasure4Percentages() {
+        return measure4Percentages;
+    }
+
+    public static void setMeasure4Percentages(List<Double> measure4Percentages) {
+        Results.measure4Percentages = measure4Percentages;
+    }
+
+    public static List<Double> getMeasure5Percentages() {
+        return measure5Percentages;
+    }
+
+    public static void setMeasure5Percentages(List<Double> measure5Percentages) {
+        Results.measure5Percentages = measure5Percentages;
+    }
+
+    public static List<Double> getMeasure6Percentages() {
+        return measure6Percentages;
+    }
+
+    public static void setMeasure6Percentages(List<Double> measure6Percentages) {
+        Results.measure6Percentages = measure6Percentages;
     }
 }

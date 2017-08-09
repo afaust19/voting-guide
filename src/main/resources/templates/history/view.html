@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
+</head>
+
+<body>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="${'Voting history for ' + user.username}">Default Title</h1>
+<br/>
+
+
+<div class="row">
+
+    <div class="col-sm-12"> <!--change the width (6) depending on number of candidates?? works just fine like this-->
+
+        <table>
+            <tr>
+                <div class="table-responsive">
+                    <td>
+                        <table class="table table-striped">
+                            <tr th:each="candidate : ${candidates}">
+                                <th th:text="${#strings.capitalizeWords(candidate.office)}"></th>
+                                <td th:text="${candidate.name}"></td>
+                            </tr>
+
+                            <tr th:each="entry : ${measureChoices}">
+                                <th th:text="${entry.key}"></th>
+                                <td th:text="${entry.value}"></td>
+                            </tr>
+
+                        </table>
+
+                    </td>
+
+                </div>
+            </tr>
+
+        </table>
+
+    </div> <!--col-sm-6-->
+</div> <!--row-->
+
+
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

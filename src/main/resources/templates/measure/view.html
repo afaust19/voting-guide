@@ -9,52 +9,50 @@
 <h1 th:text="${title}">Default Title</h1>
 <br/>
 
-<div class="container">
+<div class="row">
 
-    <div class="row">
+    <div th:object="${measure}">
+        <div class="col-sm-12"> <!--change the width (6) depending on number of candidates?? works just fine like this-->
 
-        <div th:object="${measure}">
-            <div class="col-sm-12"> <!--change the width (6) depending on number of candidates?? works just fine like this-->
+            <table>
+                <tr>
+                    <div class="table-responsive">
+                        <td>
+                            <table class="table table-striped">
 
-                <table>
-                    <tr>
-                        <div class="table-responsive">
-                            <td>
-                                <table class="table table-striped">
+                                <tr>
+                                    <th>Name</th>
+                                    <td th:text="*{name}"></td>
+                                </tr>
 
-                                    <tr>
-                                        <th>Name</th>
-                                        <td th:text="*{name}"></td>
-                                    </tr>
+                                <tr>
+                                    <th>Passing Criteria</th>
+                                    <td colspan="2" th:text="*{passingCriteria}"></td>
+                                </tr>
 
-                                    <tr>
-                                        <th>Passing Criteria</th>
-                                        <td colspan="2" th:text="*{passingCriteria}"></td>
-                                    </tr>
+                                <tr>
+                                    <th>Ballot Wording</th>
+                                    <td th:text="*{ballotWording}"></td>
+                                </tr>
 
-                                    <tr>
-                                        <th>Ballot Wording</th>
-                                        <td th:text="*{ballotWording}"></td>
-                                    </tr>
+                                <tr>
+                                    <th>Summary</th>
+                                    <td th:text="*{summary}"></td>
+                                </tr>
 
-                                    <tr>
-                                        <th>Summary</th>
-                                        <td th:text="*{summary}"></td>
-                                    </tr>
+                            </table>
 
-                                </table>
+                        </td>
 
-                            </td>
+                    </div>
+                </tr>
 
-                        </div>
-                    </tr>
+            </table>
 
-                </table>
+        </div> <!--col-sm-6-->
+    </div> <!--candidates-->
+</div> <!--row-->
 
-            </div> <!--col-sm-6-->
-        </div> <!--candidates-->
-    </div> <!--row-->
-</div> <!--container-->
 
 
 <div th:replace="fragments :: footer"></div>

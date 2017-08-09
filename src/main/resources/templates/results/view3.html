@@ -24,6 +24,9 @@
           google.charts.setOnLoadCallback(drawMeasure1Chart);
           google.charts.setOnLoadCallback(drawMeasure2Chart);
           google.charts.setOnLoadCallback(drawMeasure3Chart);
+          google.charts.setOnLoadCallback(drawMeasure4Chart);
+          google.charts.setOnLoadCallback(drawMeasure5Chart);
+          google.charts.setOnLoadCallback(drawMeasure6Chart);
 
           function drawMayoralChart() {
             var candidates = [[${mayoralCandidates}]];
@@ -104,7 +107,7 @@
                 data.addRow([candidates[i], percentages[i]]);
             }
 
-            var options = {title: 'Measure 1'}
+            var options = {title: 'Proposition A'}
 
             var chart = new google.visualization.PieChart(document.getElementById('measure1Chart'));
             chart.draw(data, options);
@@ -121,7 +124,7 @@
                 data.addRow([candidates[i], percentages[i]]);
             }
 
-            var options = {title: 'Measure 2'}
+            var options = {title: 'Proposition B'}
 
             var chart = new google.visualization.PieChart(document.getElementById('measure2Chart'));
             chart.draw(data, options);
@@ -138,9 +141,60 @@
                 data.addRow([candidates[i], percentages[i]]);
             }
 
-            var options = {title: 'Measure 3'}
+            var options = {title: 'Proposition C'}
 
             var chart = new google.visualization.PieChart(document.getElementById('measure3Chart'));
+            chart.draw(data, options);
+          }
+
+          function drawMeasure4Chart() {
+            var candidates = [[${measure4}]];
+            var percentages = [[${measure4Percentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Measure');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Proposition 1'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('measure4Chart'));
+            chart.draw(data, options);
+          }
+
+          function drawMeasure5Chart() {
+            var candidates = [[${measure5}]];
+            var percentages = [[${measure5Percentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Measure');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Proposition 2'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('measure5Chart'));
+            chart.draw(data, options);
+          }
+
+          function drawMeasure6Chart() {
+            var candidates = [[${measure6}]];
+            var percentages = [[${measure6Percentages}]];
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Measure');
+            data.addColumn('number','Percentage');
+
+            for(i = 0; i < candidates.length; i++) {
+                data.addRow([candidates[i], percentages[i]]);
+            }
+
+            var options = {title: 'Proposition NS'}
+
+            var chart = new google.visualization.PieChart(document.getElementById('measure6Chart'));
             chart.draw(data, options);
           }
 
@@ -152,67 +206,50 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <div class="row">
-    <div class="col-md-12 text-center"> <!--fix later - align left-->
+    <div class="col-md-12 text-left"> <!--fix later - align left-->
         <h1 th:text="${title}"></h1>
     </div>
     <div class="clearfix"></div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div id="mayoralChart" class="chart"></div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div id="comptrollerChart" class="chart"></div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div id="alderman7Chart" class="chart"></div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div id="alderman9Chart" class="chart"></div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div id="measure1Chart" class="chart"></div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div id="measure2Chart" class="chart"></div>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div id="measure3Chart" class="chart"></div>
     </div>
+
+    <div class="col-md-4">
+        <div id="measure4Chart" class="chart"></div>
+    </div>
+
+    <div class="col-md-4">
+        <div id="measure5Chart" class="chart"></div>
+    </div>
+
+    <div class="col-md-4">
+        <div id="measure6Chart" class="chart"></div>
+    </div>
 </div>
-
-
-
-<!--<table>
-    <tr>
-        <td><div id="mayoralChart" style="border: 1px solid #ccc"></div></td>
-        <td><div id="comptrollerChart" style="border: 1px solid #ccc"></div></td>
-    </tr>
-</table>
-
-<table>
-    <tr>
-        <td><div id="alderman7Chart" style="border: 1px solid #ccc"></div></td>
-        <td><div id="alderman28Chart" style="border: 1px solid #ccc"></div></td>
-    </tr>
-</table>
-
-<table>
-    <tr>
-        <td><div id="measure1Chart" style="border: 1px solid #ccc"></div></td>
-        <td><div id="measure2Chart" style="border: 1px solid #ccc"></div></td>
-    </tr>
-</table>
-
-<table>
-    <tr>
-        <td><div id="measure3Chart" style="border: 1px solid #ccc"></div></td>
-    </tr>
-</table>-->
 
 
 <div th:replace="fragments :: footer"></div>

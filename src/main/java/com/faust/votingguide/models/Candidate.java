@@ -29,9 +29,6 @@ public class Candidate {
     private String party;
 
     @NotNull
-    private int age;
-
-    @NotNull
     private String website;
 
     @NotNull
@@ -43,9 +40,6 @@ public class Candidate {
     @NotNull
     private String incumbent;        //boolean instead?
 
-    @Column(length=16777218)
-    private byte[] image;
-
     private int votes = 0;
 
     @ManyToOne
@@ -56,13 +50,12 @@ public class Candidate {
 
     // latest Tweet (embedded) - add to resources page?
 
-    public Candidate(String office, String name, String party, int age, String website,
+    public Candidate(String office, String name, String party, String website,
                      String education, String electedOffices,
                      String incumbent, int votes) {
         this.office = office;
         this.name = name;
         this.party = party;
-        this.age = age;
         this.website = website;
         this.education = education;
         this.electedOffices = electedOffices;
@@ -102,10 +95,6 @@ public class Candidate {
         return party;
     }
 
-    public int getAge() {
-        return age;
-    }
-
     public String getWebsite() {
         return website;
     }
@@ -134,11 +123,4 @@ public class Candidate {
         this.ballots = ballots;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 }

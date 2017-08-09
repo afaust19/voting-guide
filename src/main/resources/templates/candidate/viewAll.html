@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 <head th:replace="fragments :: head">                                               <!--replace this head with whatever is in the head of the fragments.html file-->
 </head>
 <body>
@@ -7,71 +7,46 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <h1 th:text="${'Candidates for ' + #strings.capitalize(title)}">Default Title</h1>
+<br/>
 
 <div class="container">
-
     <div class="row">
+        <div class="col-4" th:each="candidate : ${candidates}">
+            <table class="table table-striped">
 
-        <div th:each="candidate : ${candidates}">
-            <div class="col-sm-6"> <!--change the width (6) depending on number of candidates?? works just fine like this-->
-
-                <table>
                     <tr>
-                        <div class="table-responsive">
-                            <td>
-                                <table class="table table-striped">
-
-                                    <tr> <!--make this row span two columns-->
-                                        <td colspan="2"><img alt="Image" th:src="@{image/} + ${candidate.id}" class="img-responsive"/></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Name</th>
-                                        <td th:text="${candidate.name}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Age</th>
-                                        <td th:text="${candidate.age}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Party</th>
-                                        <td th:text="${candidate.party}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Education</th>
-                                        <td th:text="${candidate.education}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Elected Offices</th>
-                                        <td th:text="${candidate.electedOffices}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Incumbent?</th>
-                                        <td th:text="${candidate.incumbent}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Website</th>
-                                        <td th:text="${candidate.website}"></td>
-                                    </tr>
-                                </table>
-
-                            </td>
-
-                        </div>
+                        <td colspan="2" align="center"><img alt="Image" th:src="@{image/} + ${candidate.id}" class="img-responsive"/></td>
                     </tr>
 
-                </table>
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="${candidate.name}"></td>
+                    </tr>
 
-            </div> <!--col-sm-6-->
-        </div> <!--candidates-->
-    </div> <!--row-->
-</div> <!--container-->
+                    <tr>
+                        <th>Party</th>
+                        <td th:text="${candidate.party}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Education</th>
+                        <td th:text="${candidate.education}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Elected Offices</th>
+                        <td th:text="${candidate.electedOffices}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Contact Info</th>
+                        <td>Website Email Facebook Twitter</td>
+                    </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
 
 
 <form method="post" th:action="@{/candidates/compare}" th:object="${candidates}" modelAttribute="candidatesToCompare">
@@ -94,6 +69,8 @@
     <input type="submit" value="Compare!" />
 
 </form>
+
+<br/>
 
 <div th:replace="fragments :: footer"></div>
 </body>

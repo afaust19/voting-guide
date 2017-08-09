@@ -7,61 +7,65 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method="post" action="/ballot" th:object="${form}" modelAttribute="ballotFormView">
+<div class="container">
+    <form method="post" action="/ballot" th:object="${form}" modelAttribute="ballotFormView">
 
-<div class="form-group">
-    <label th:for="mayoralCandidateId">Mayor</label>
-    <select class="form-control"
-            th:name="mayoralCandidateId"
-            th:field="*{candidates}">
-        <option th:each="candidate : *{candidates}"
-                th:if="${candidate.office} == 'mayor'"
-                th:text="${candidate.name}"
-                th:value="${candidate.id}"></option>
-    </select>
+    <div class="form-group">
+        <label th:for="mayoralCandidateId">Mayor</label>
+        <select class="form-control"
+                th:name="mayoralCandidateId"
+                th:field="*{candidates}">
+            <option value="0" selected="selected">Select</option>
+            <option th:each="candidate : *{candidates}"
+                    th:if="${candidate.office} == 'mayor'"
+                    th:text="${candidate.name}"
+                    th:value="${candidate.id}"></option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label th:for="comptrollerCandidateId">Comptroller</label>
+        <select class="form-control"
+                th:name="comptrollerCandidateId"
+                th:field="*{candidates}">
+            <option th:each="candidate : *{candidates}"
+                    th:if="${candidate.office} == 'comptroller'"
+                    th:text="${candidate.name}"
+                    th:value="${candidate.id}"></option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label th:for="aldermanicCandidateId">Alderperson</label>
+        <select class="form-control"
+                th:name="aldermanicCandidateId"
+                th:field="*{candidates}">
+            <option th:each="candidate : *{candidates}"
+                    th:if="${candidate.office} == 'alderman' and ${candidate.ward.id} == ${currentUserWardId}"
+                    th:text="${candidate.name}"
+                    th:value="${candidate.id}"></option>
+        </select>
+
+    </div>
+
+        <!--condense below statements into "select" tag?-->
+
+    <div th:each="measure : *{measures}">
+        <label th:text="${measure.name}"></label>
+        <select th:field="*{measures}">
+            <option th:value="${measure.id}">YES - FOR THE PROPOSITION</option>
+            <option th:value="null">N0 - AGAINST THE PROPOSITION</option>  <!--TRY TH:VALUE ="NULL" INSTEAD?? WORKS!!-->
+        </select>
+    </div>
+
+        <p><input type="submit" value="Submit" /></p>
+
+
+    </form>
+
 </div>
-
-
-<div class="form-group">
-    <label th:for="comptrollerCandidateId">Comptroller</label>
-    <select class="form-control"
-            th:name="comptrollerCandidateId"
-            th:field="*{candidates}">
-        <option th:each="candidate : *{candidates}"
-                th:if="${candidate.office} == 'comptroller'"
-                th:text="${candidate.name}"
-                th:value="${candidate.id}"></option>
-    </select>
-</div>
-
-
-<div class="form-group">
-    <label th:for="aldermanicCandidateId">Alderperson</label>
-    <select class="form-control"
-            th:name="aldermanicCandidateId"
-            th:field="*{candidates}">
-        <option th:each="candidate : *{candidates}"
-                th:if="${candidate.office} == 'alderman' and ${candidate.ward.id} == ${currentUserWardId}"
-                th:text="${candidate.name}"
-                th:value="${candidate.id}"></option>
-    </select>
-
-</div>
-
-    <!--condense below statements into "select" tag?-->
-
-<div th:each="measure : *{measures}">
-    <label th:text="${measure.name}"></label>
-    <select th:field="*{measures}">
-        <option th:value="${measure.id}">YES - FOR THE PROPOSITION</option>
-        <option th:value="null">N0 - AGAINST THE PROPOSITION</option>  <!--TRY TH:VALUE ="NULL" INSTEAD?? WORKS!!-->
-    </select>
-</div>
-
-    <p><input type="submit" value="Submit" /></p>
-
-
-</form>
 
 <div th:replace="fragments :: footer"></div>
 </body>
