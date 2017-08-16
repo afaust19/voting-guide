@@ -1,10 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
+<head th:replace="fragments :: header"></head>
 <body>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div class="container">
+<h1 th:text="${title}">My Resources</h1>
+<br/>
+
+    <div id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+                <h5 class="mb-0">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Articles
+                    </a>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card-block">
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" role="tab" id="headingTwo">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Video
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <div class="card-block">
+                    Added videos go here
+
+
+
+                    <form method="post" action="/resources" th:object="${form}" modelAttribute="resourcesFormView">
+                        <input name="video"/>
+                        <button type="submit" name="action" value="add">Add</button>
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" role="tab" id="headingThree">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Audio
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="card-block">
+                    Panel 3
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div th:replace="fragments :: footer"></div>
+
 
 </body>
 </html>

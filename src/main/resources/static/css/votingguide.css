@@ -20,7 +20,7 @@ footer {
     height: 65%;
 }
 
-.fa {
+/*.fa {
     padding: 10px;
     font-size: 40px;
     width: 50px;
@@ -31,9 +31,25 @@ footer {
 
 .fa:hover {
     opacity: 0.7;
+}*/
+
+.social-links a {
+    text-align: center;
+	float: left;
+	width: 36px;
+	height: 36px;
+	border: 1px solid #909090;
+	border-radius: 100%;
+	margin-right: 7px; /*space between*/
 }
 
-.fa-facebook {
+.social-links a i{
+	font-size: 20px;
+    line-height: 38px;
+	color: #909090;
+}
+
+/*.fa-facebook {
     background: #3B5998;
     color: white;
 }
@@ -46,4 +62,4 @@ footer {
 .fa-laptop {
     background: #EB2E2E;
     color: white;
-}
+}*/

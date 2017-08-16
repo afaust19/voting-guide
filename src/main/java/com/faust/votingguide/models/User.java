@@ -41,10 +41,24 @@ public class User {
     @JoinColumn(name = "ballot_id")
     private Ballot ballot;
 
-    public User(String username, String email, String password) {
+    @ElementCollection
+    @CollectionTable
+    private List<String> articles; //list of links
+
+    @ElementCollection
+    @CollectionTable
+    private List<String> videos;
+
+    @ElementCollection
+    @CollectionTable
+    private List<String> audio;
+
+
+    public User(String username, String email, String password, Ward ward) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.ward = ward;
     }
 
     // Default Constructor   -   need this?
@@ -98,5 +112,29 @@ public class User {
 
     public void setBallot(Ballot ballot) {
         this.ballot = ballot;
+    }
+
+    public List<String> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<String> articles) {
+        this.articles = articles;
+    }
+
+    public List<String> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<String> videos) {
+        this.videos = videos;
+    }
+
+    public List<String> getAudio() {
+        return audio;
+    }
+
+    public void setAudio(List<String> audio) {
+        this.audio = audio;
     }
 }
