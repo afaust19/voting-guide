@@ -8,6 +8,8 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<div class="container">
+
 <h1 th:text="${title}">Default Title</h1>
 
 <form method="post" action="/register" style="max-width:600px;" th:object="${user}">
@@ -54,5 +56,6 @@
 </form>
 
 <div th:replace="fragments :: footer"></div>
+</div>
 </body>
 </html>

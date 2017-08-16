@@ -6,13 +6,89 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="${'Candidates for ' + #strings.capitalize(title)}">Default Title</h1>
+<div class="container">
+
+<div th:switch="${office}">
+    <div th:case="'mayor'"><h1 th:text="${'Candidates for ' + #strings.capitalize(office)}"></h1></div>
+    <div th:case="'comptroller'"><h1 th:text="${'Candidates for ' + #strings.capitalize(office)}"></h1></div>
+    <div th:case="'alderman'"><h1 th:text="${'Candidates for ' + #strings.capitalize(office) + ' (Ward ' + ward + ')'} "></h1></div>
+</div>
+
+
+<form method="post" th:action="@{/candidates/compare(office = ${office})}" th:object="${candidates}" modelAttribute="candidatesToCompare" align="right">
+
+    <label>Compare Candidates</label>
+
+    <select name="compare1">
+        <option th:each="candidate : ${candidates}"
+                th:text="${candidate.name}"
+                th:value="${candidate.id}"></option>
+    </select>
+
+
+    <select name="compare2">
+        <option th:each="candidate : ${candidates}"
+                th:text="${candidate.name}"
+                th:value="${candidate.id}"></option>
+    </select>
+
+    <input type="submit" value="Compare!" />
+
+</form>
+
 <br/>
 
-<div class="container">
-    <div class="row">
-        <div class="col-4" th:each="candidate : ${candidates}">
-            <table class="table table-striped">
+<div th:if="${numCandidates} &gt; 2">
+    <div class="container">
+        <div class="row">
+            <div class="col-4" th:each="candidate : ${candidates}">
+                <table class="table table-striped">
+
+                        <tr>
+                            <td colspan="2" align="center"><img alt="Image" th:src="@{image/} + ${candidate.id}" class="img-responsive"/></td>
+                        </tr>
+
+                        <tr>
+                            <th>Name</th>
+                            <td th:text="${candidate.name}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Party</th>
+                            <td th:text="${candidate.party}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Education</th>
+                            <td th:text="${candidate.education}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Elected Offices</th>
+                            <td th:text="${candidate.electedOffices}"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Contact Info</th>
+                            <td>
+                                <span th:if="${candidate.website} != null"><a th:href="@{${candidate.website}}" target="_blank" class="fa fa-laptop"></a></span>
+                                <span th:if="${candidate.facebook} != null"><a th:href="@{${candidate.facebook}}" target="_blank" class="fa fa-facebook"></a></span>
+                                <span th:if="${candidate.twitter} != null"><a th:href="@{${candidate.twitter}}" target="_blank" class="fa fa-twitter"></a></span>
+                            </td>
+                        </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:if="${numCandidates} &lt; 3">
+    <div class="container">
+        <div class="row">
+            <div class="col-6" th:each="candidate : ${candidates}">
+                <table class="table table-striped">
 
                     <tr>
                         <td colspan="2" align="center"><img alt="Image" th:src="@{image/} + ${candidate.id}" class="img-responsive"/></td>
@@ -43,35 +119,16 @@
                         <td>Website Email Facebook Twitter</td>
                     </tr>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
 
-<form method="post" th:action="@{/candidates/compare}" th:object="${candidates}" modelAttribute="candidatesToCompare">
-
-    <label>Compare Candidates</label>
-
-    <select name="compare1">
-        <option th:each="candidate : ${candidates}"
-                th:text="${candidate.name}"
-                th:value="${candidate.id}"></option>
-    </select>
-
-
-    <select name="compare2">
-        <option th:each="candidate : ${candidates}"
-                th:text="${candidate.name}"
-                th:value="${candidate.id}"></option>
-    </select>
-
-    <input type="submit" value="Compare!" />
-
-</form>
-
 <br/>
 
 <div th:replace="fragments :: footer"></div>
+</div>
 </body>
 </html>

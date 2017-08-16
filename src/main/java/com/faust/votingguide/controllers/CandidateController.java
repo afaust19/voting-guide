@@ -62,11 +62,14 @@ public class CandidateController {
                 if (candidate.getWard() == null) {
                     candidateList.add(candidate);
                     model.addAttribute("candidates", candidateList);
-                    model.addAttribute("title", office); //capitalize string
+                    model.addAttribute("office", office); //capitalize string
+                    model.addAttribute("numCandidates", candidateList.size());
                 } else if (candidate.getWard().getWardNumber() == ward) {
                     candidateList.add(candidate);
                     model.addAttribute("candidates", candidateList);
-                    model.addAttribute("title", office + " (Ward " + ward + ")");
+                    model.addAttribute("office", office);
+                    model.addAttribute("ward", ward);
+                    model.addAttribute("numCandidates", candidateList.size());
                 }
 
             }
@@ -74,11 +77,32 @@ public class CandidateController {
         return "candidate/viewAll";
     }
 
+
+    @RequestMapping(value = "compare", method = RequestMethod.GET)                 //handler for comparing 2 candidates, fetch candidate objects from url passed in from view (candidates.index)
+    public String compareForm(Model model,@RequestParam String office) { //empty objects? how to bind two objects at once?
+
+        ArrayList<Candidate> candidateList = new ArrayList<>();
+
+        System.out.println(office);
+        for (Candidate candidate : candidateDao.findAll()) {
+            if (candidate.getOffice().equals(office)) {
+                candidateList.add(candidate);
+                model.addAttribute("formCandidates", candidateList);
+                model.addAttribute("office", office); //capitalize string
+                model.addAttribute("numCandidates", candidateList.size());
+            }
+        }
+
+        return "candidate/compare";
+    }
+
+
+
     @RequestMapping(value = "compare", method = RequestMethod.POST)                 //handler for comparing 2 candidates, fetch candidate objects from url passed in from view (candidates.index)
     public String compare(@ModelAttribute("candidatesToCompare") @Valid CompareForm CandidatesToCompare, Model model) { //empty objects? how to bind two objects at once?
 
         model.addAttribute("candidates", CandidatesToCompare);
-        model.addAttribute("title", "Compare Candidates for " + CandidatesToCompare.getCompare1().getOffice());
+        model.addAttribute("office", CandidatesToCompare.getCompare1().getOffice());
 
         return "candidate/compare";
     }

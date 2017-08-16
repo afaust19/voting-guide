@@ -4,6 +4,8 @@
 <body>
 
 <nav th:replace="fragments :: navigation"></nav>
+
+<div class="container">
 <h1 th:text="${title}">Default Title</h1>
 <br/>
 
@@ -68,5 +70,6 @@
 </table>
 
 <div th:replace="fragments :: footer"></div>
+</div>
 </body>
 </html>

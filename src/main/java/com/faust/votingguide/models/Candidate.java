@@ -1,6 +1,8 @@
 package com.faust.votingguide.models;
 
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.awt.*;
@@ -29,16 +31,16 @@ public class Candidate {
     private String party;
 
     @NotNull
-    private String website;
-
-    @NotNull
     private String education;
 
     @NotNull
     private String electedOffices;   //change to ArrayList of Strings
 
-    @NotNull
-    private String incumbent;        //boolean instead?
+    private String website;
+
+    private String twitter;
+
+    private String facebook;
 
     private int votes = 0;
 
@@ -48,18 +50,17 @@ public class Candidate {
     @ManyToMany(mappedBy = "candidates")
     private List<Ballot> ballots;
 
-    // latest Tweet (embedded) - add to resources page?
-
     public Candidate(String office, String name, String party, String website,
-                     String education, String electedOffices,
-                     String incumbent, int votes) {
+                     String education, String electedOffices, String twitter,
+                     String facebook, int votes) {
         this.office = office;
         this.name = name;
         this.party = party;
         this.website = website;
+        this.twitter = twitter;
+        this.facebook = facebook;
         this.education = education;
         this.electedOffices = electedOffices;
-        this.incumbent = incumbent;
         this.votes = votes;
     }
 
@@ -107,8 +108,12 @@ public class Candidate {
         return electedOffices;
     }
 
-    public String getIncumbent() {
-        return incumbent;
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public String getFacebook() {
+        return facebook;
     }
 
     public Ward getWard() {

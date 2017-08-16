@@ -7,43 +7,33 @@
 <body>
 
 <nav th:replace="fragments :: navigation"></nav>
+<div class="container">
 
 <h1 th:text="${'Voting history for ' + user.username}">Default Title</h1>
 <br/>
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped">
 
-<div class="row">
+                <tr th:each="candidate : ${candidates}">
+                    <th th:text="${#strings.capitalizeWords(candidate.office)}"></th>
+                    <td th:text="${candidate.name}"></td>
+                </tr>
 
-    <div class="col-sm-12"> <!--change the width (6) depending on number of candidates?? works just fine like this-->
+                <tr th:each="entry : ${measureChoices}">
+                    <th th:text="${entry.key}"></th>
+                    <td th:text="${entry.value}"></td>
+                </tr>
 
-        <table>
-            <tr>
-                <div class="table-responsive">
-                    <td>
-                        <table class="table table-striped">
-                            <tr th:each="candidate : ${candidates}">
-                                <th th:text="${#strings.capitalizeWords(candidate.office)}"></th>
-                                <td th:text="${candidate.name}"></td>
-                            </tr>
-
-                            <tr th:each="entry : ${measureChoices}">
-                                <th th:text="${entry.key}"></th>
-                                <td th:text="${entry.value}"></td>
-                            </tr>
-
-                        </table>
-
-                    </td>
-
-                </div>
-            </tr>
-
-        </table>
-
-    </div> <!--col-sm-6-->
-</div> <!--row-->
+            </table>
+        </div>
+    </div>
+</div>
 
 
 <div th:replace="fragments :: footer"></div>
+</div>
 </body>
 </html>

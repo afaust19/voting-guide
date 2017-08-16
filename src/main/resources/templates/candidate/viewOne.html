@@ -6,69 +6,55 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="${title}">Default Title</h1>
-
 <div class="container">
 
-    <div class="row">
+<h1 th:text="${title}">Default Title</h1>
 
-        <div th:object="${candidate}">
-            <div class="col-sm-6"> <!--change the width (6) depending on number of candidates?? works just fine like this-->
+<br/>
 
-                <table>
+    <div th:object="${candidate}">
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
                     <tr>
-                        <div class="table-responsive">
-                            <td>
-                                <table class="table table-striped">
-
-                                    <tr> <!--make this row span two columns-->
-                                        <td colspan="2"><img alt="Image" th:src="@{image/} + *{id}" class="img-responsive"/></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Name</th>
-                                        <td th:text="*{name}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Party</th>
-                                        <td th:text="*{party}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Education</th>
-                                        <td th:text="*{education}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Elected Offices</th>
-                                        <td th:text="*{electedOffices}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Incumbent?</th>
-                                        <td th:text="*{incumbent}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>Website</th>
-                                        <td th:text="*{website}"></td>
-                                    </tr>
-                                </table>
-
-                            </td>
-
-                        </div>
+                        <td colspan="2" align="center"><img alt="Image" th:src="@{image/} + *{id}" class="img-responsive"/></td>
                     </tr>
 
-                </table>
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="*{name}"></td>
+                    </tr>
 
-            </div> <!--col-sm-6-->
-        </div> <!--candidates-->
-    </div> <!--row-->
-</div> <!--container-->
+                    <tr>
+                        <th>Party</th>
+                        <td th:text="*{party}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Education</th>
+                        <td th:text="*{education}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Elected Offices</th>
+                        <td th:text="*{electedOffices}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Contact Info</th>
+                        <td>
+                            <span th:if="*{website} != null"><a th:href="@{*{website}}" target="_blank" class="fa fa-laptop"></a></span>
+                            <span th:if="*{facebook} != null"><a th:href="@{*{facebook}}" target="_blank" class="fa fa-facebook"></a></span>
+                            <span th:if="*{twitter} != null"><a th:href="@{*{twitter}}" target="_blank" class="fa fa-twitter"></a></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 
 
 <div th:replace="fragments :: footer"></div>
+</div>
 </body>
 </html>

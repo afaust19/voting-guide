@@ -8,8 +8,11 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<div class="container">
+
 <p th:text="${'Welcome ' + user.username + '!'}"></p>
 
 <div th:replace="fragments :: footer"></div>
+</div>
 </body>
 </html>

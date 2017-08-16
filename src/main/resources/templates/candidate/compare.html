@@ -5,81 +5,85 @@
 <body>
 
 <nav th:replace="fragments :: navigation"></nav>
-
-
-<h1 th:text="${#strings.capitalizeWords(title)}">Default Title</h1>
-
-
 <div class="container">
-    <div class="row">
-        <div th:object="${candidates}">
+
+<h1 th:text="${'Compare Candidates for ' + #strings.capitalize(office)}">Default Title</h1>
+
+<br/>
+
+
+    <div th:object="${candidates}">
+        <div class="row">
             <div class="col-6">
-            <table class="table table-striped">
-                <tr>
-                    <td colspan="2" align="center"><img alt="Image" th:src="@{image/} + *{compare1.id}" class="img-responsive"/></td>
-                </tr>
+                <table class="table table-striped">
+                    <tr>
+                        <td colspan="2" align="center"><img alt="Image" th:src="@{image/} + *{compare1.id}" class="img-responsive"/></td>
+                    </tr>
 
-                <tr>
-                    <th>Name</th>
-                    <td th:text="*{compare1.name}"></td>
-                </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="*{compare1.name}"></td>
+                    </tr>
 
-                <tr>
-                    <th>Party</th>
-                    <td th:text="*{compare2.party}"></td>
-                </tr>
+                    <tr>
+                        <th>Party</th>
+                        <td th:text="*{compare2.party}"></td>
+                    </tr>
 
-                <tr>
-                    <th>Education</th>
-                    <td th:text="*{compare1.education}"></td>
-                </tr>
+                    <tr>
+                        <th>Education</th>
+                        <td th:text="*{compare1.education}"></td>
+                    </tr>
 
-                <tr>
-                    <th>Elected Offices</th>
-                    <td th:text="*{compare1.electedOffices}"></td>
-                </tr>
+                    <tr>
+                        <th>Elected Offices</th>
+                        <td th:text="*{compare1.electedOffices}"></td>
+                    </tr>
 
-                <tr>
-                    <th>Contact Info</th>
-                    <td>Website Email Facebook Twitter</td>
-                </tr>
-            </table>
+                    <tr>
+                        <th>Contact Info</th>
+                        <td>Website Email Facebook Twitter</td>
+                    </tr>
+                </table>
             </div>
 
-            <table class="table table-striped">
-                <tr>
-                    <td colspan="2" align="center"><img alt="Image" th:src="@{image/} + *{compare2.id}" class="img-responsive"/></td>
-                </tr>
+            <div class="col-6">
+                <table class="table table-striped">
+                    <tr>
+                        <td colspan="2" align="center"><img alt="Image" th:src="@{image/} + *{compare2.id}" class="img-responsive"/></td>
+                    </tr>
 
-                <tr>
-                    <th>Name</th>
-                    <td th:text="*{compare2.name}"></td>
-                </tr>
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="*{compare2.name}"></td>
+                    </tr>
 
-                <tr>
-                    <th>Party</th>
-                    <td th:text="*{compare2.party}"></td>
-                </tr>
+                    <tr>
+                        <th>Party</th>
+                        <td th:text="*{compare2.party}"></td>
+                    </tr>
 
-                <tr>
-                    <th>Education</th>
-                    <td th:text="*{compare2.education}"></td>
-                </tr>
+                    <tr>
+                        <th>Education</th>
+                        <td th:text="*{compare2.education}"></td>
+                    </tr>
 
-                <tr>
-                    <th>Elected Offices</th>
-                    <td th:text="*{compare2.electedOffices}"></td>
-                </tr>
+                    <tr>
+                        <th>Elected Offices</th>
+                        <td th:text="*{compare2.electedOffices}"></td>
+                    </tr>
 
-                <tr>
-                    <th>Contact Info</th>
-                    <td>Website Email Facebook Twitter</td>
-                </tr>
-            </table>
+                    <tr>
+                        <th>Contact Info</th>
+                        <td>Website Email Facebook Twitter</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+
 
 <div th:replace="fragments :: footer"></div>
+</div>
 </body>
 </html>

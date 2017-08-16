@@ -6,6 +6,8 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<div class="container">
+
 <div th:text="${'Not ' + user.username + '?'}"></div>
 
 <div>
@@ -14,5 +16,6 @@
 </div>
 
 <div th:replace="fragments :: footer"></div>
+</div>
 </body>
 </html>
