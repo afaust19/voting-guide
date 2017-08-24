@@ -42,9 +42,11 @@
                     <tr>
                         <th>Contact Info</th>
                         <td>
-                            <span th:if="*{compare1.website} != null"><a th:href="@{*{compare1.website}}" target="_blank" class="fa fa-laptop"></a></span>
-                            <span th:if="*{compare1.facebook} != null"><a th:href="@{*{compare1.facebook}}" target="_blank" class="fa fa-facebook"></a></span>
-                            <span th:if="*{compare1.twitter} != null"><a th:href="@{*{compare1.twitter}}" target="_blank" class="fa fa-twitter"></a></span>
+                            <div class="social-links">
+                                <span th:if="*{compare1.website} != null"><a th:href="@{*{compare1.website}}" target="_blank"><i class="fa fa-laptop fa-lg"></i></a></span>
+                                <span th:if="*{compare1.facebook} != null"><a th:href="@{*{compare1.facebook}}" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                <span th:if="*{compare1.twitter} != null"><a th:href="@{*{compare1.twitter}}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                            </div>
                         </td>
                     </tr>
                 </table>
@@ -79,23 +81,11 @@
                     <tr>
                         <th>Contact Info</th>
                         <td>
-                            <span th:if="${candidate.website} != null">
-                                <div class="social-links">
-                                    <a th:href="@{${candidate.website}}" target="_blank"><i class="fa fa-laptop fa-lg"></i></a>
-                                </div>
-                            </span>
-
-                            <span th:if="${candidate.facebook} != null">
-                                <div class="social-links">
-                                    <a th:href="@{${candidate.facebook}}" target="_blank"><i class="fa fa-facebook fa-lg"></i></a>
-                                </div>
-                            </span>
-
-                            <span th:if="${candidate.twitter} != null">
-                                <div class="social-links">
-                                    <a th:href="@{${candidate.twitter}}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
-                                </div>
-                            </span>
+                            <div class="social-links">
+                                <span th:if="*{compare2.website} != null"><a th:href="@{*{compare2.website}}" target="_blank"><i class="fa fa-laptop fa-lg"></i></a></span>
+                                <span th:if="*{compare2.facebook} != null"><a th:href="@{*{compare2.facebook}}" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                <span th:if="*{compare2.twitter} != null"><a th:href="@{*{compare2.twitter}}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                            </div>
                         </td>
                     </tr>
                 </table>

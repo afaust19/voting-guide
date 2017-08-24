@@ -1,9 +1,10 @@
 package com.faust.votingguide.controllers;
 
+import com.faust.votingguide.models.Resource;
+import com.faust.votingguide.models.ResourceType;
 import com.faust.votingguide.models.User;
+import com.faust.votingguide.models.data.ResourceDao;
 import com.faust.votingguide.models.data.UserDao;
-import com.faust.votingguide.models.forms.BallotForm;
-import com.faust.votingguide.models.forms.ResourcesForm;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,46 +28,61 @@ public class ResourcesController {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    ResourceDao resourceDao;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String displayResources() {
+    public String displayResources(Model model, HttpServletRequest request) {
 
-        return "resources/view";
-
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String addResources(@ModelAttribute("resourcesFormView") ResourcesForm form,
-                               HttpServletRequest request) {
-
-        String newArticle = form.getArticle();
-
-        String newVideo = form.getVideo();
-
-        String newAudio = form.getAudio();
-
+        User currentUser = null;          //use this to get currentUser in other Controllers
 
         for (Cookie cookie : request.getCookies()) {  //pass current user object to view?
             if (cookie.getName().equals("user")) {
                 String currentUsername = cookie.getValue();
-                User currentUser = userDao.findByUsername(currentUsername);
-
-                List<String> articles = currentUser.getArticles();
-                articles.add(newArticle);
-                currentUser.setArticles(articles);
-
-                List<String> videos = currentUser.getVideos();
-                videos.add(newVideo);
-                currentUser.setVideos(videos);
-
-                List<String> audio = currentUser.getAudio();
-                audio.add(newAudio);
-                currentUser.setAudio(audio);
-
-
+                currentUser = userDao.findByUsername(currentUsername);
             }
-
         }
+
+        List<Resource> resources = new ArrayList<>();
+
+        for (Resource resource : resourceDao.findAll()) {
+            if (resource.getUser().getId() == (currentUser.getId())) {
+                resources.add(resource);
+            }
+        }
+
+        model.addAttribute("resources", resources);
         return "resources/view";
+
     }
+
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public String displayAddResource(Model model, HttpServletRequest request) {
+
+        model.addAttribute("resource", new Resource());
+        model.addAttribute("resourceTypes", ResourceType.values());
+        return "resources/add";
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public String processAddRecource(@ModelAttribute Resource newResource, Model model, HttpServletRequest request) {
+
+        User currentUser = null;          //use this to get currentUser in other Controllers
+
+        for (Cookie cookie : request.getCookies()) {  //pass current user object to view?
+            if (cookie.getName().equals("user")) {
+                String currentUsername = cookie.getValue();
+                currentUser = userDao.findByUsername(currentUsername);
+            }
+        }
+
+        currentUser.addResource(newResource);
+
+        resourceDao.save(newResource);
+
+        return "redirect:";
+    }
+
+
 }
 

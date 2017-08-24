@@ -1,9 +1,6 @@
 package com.faust.votingguide.models;
 
-import com.faust.votingguide.models.data.CandidateDao;
-import com.faust.votingguide.models.data.UserDao;
 import org.hibernate.validator.constraints.Email;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -41,18 +38,13 @@ public class User {
     @JoinColumn(name = "ballot_id")
     private Ballot ballot;
 
-    @ElementCollection
-    @CollectionTable
-    private List<String> articles; //list of links
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<Resource> resources = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable
-    private List<String> videos;
-
-    @ElementCollection
-    @CollectionTable
-    private List<String> audio;
-
+    public void addResource(Resource resource) {
+        resources.add(resource);
+    }
 
     public User(String username, String email, String password, Ward ward) {
         this.username = username;
@@ -114,27 +106,11 @@ public class User {
         this.ballot = ballot;
     }
 
-    public List<String> getArticles() {
-        return articles;
+    public List<Resource> getResources() {
+        return resources;
     }
 
-    public void setArticles(List<String> articles) {
-        this.articles = articles;
-    }
-
-    public List<String> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List<String> videos) {
-        this.videos = videos;
-    }
-
-    public List<String> getAudio() {
-        return audio;
-    }
-
-    public void setAudio(List<String> audio) {
-        this.audio = audio;
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }

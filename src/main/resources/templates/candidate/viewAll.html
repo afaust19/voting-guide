@@ -32,7 +32,7 @@
                 th:value="${candidate.id}"></option>
     </select>
 
-    <input type="submit" value="Compare!" />
+    <input type="submit" value="Compare" />
 
 </form>
 
@@ -71,23 +71,11 @@
                         <tr>
                             <th>Contact Info</th>
                             <td>
-                                <span th:if="${candidate.website} != null">
-                                    <div class="social-links">
-                                        <a th:href="@{${candidate.website}}" target="_blank"><i class="fa fa-laptop fa-lg"></i></a>
-                                    </div>
-                                </span>
-
-                                <span th:if="${candidate.facebook} != null">
-                                    <div class="social-links">
-                                        <a th:href="@{${candidate.facebook}}" target="_blank"><i class="fa fa-facebook fa-lg"></i></a>
-                                    </div>
-                                </span>
-
-                                <span th:if="${candidate.twitter} != null">
-                                    <div class="social-links">
-                                        <a th:href="@{${candidate.twitter}}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
-                                    </div>
-                                </span>
+                                <div class="social-links">
+                                    <span th:if="${candidate.website} != null"><a th:href="@{${candidate.website}}" target="_blank"><i class="fa fa-laptop fa-lg"></i></a></span>
+                                    <span th:if="${candidate.facebook} != null"><a th:href="@{${candidate.facebook}}" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                    <span th:if="${candidate.twitter} != null"><a th:href="@{${candidate.twitter}}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                                </div>
                             </td>
                         </tr>
 
@@ -131,23 +119,11 @@
                     <tr>
                         <th>Contact Info</th>
                         <td>
-                            <span th:if="${candidate.website} != null">
-                                <div class="social-links">
-                                    <a th:href="@{${candidate.website}}" target="_blank"><i class="fa fa-laptop fa-lg"></i></a>
-                                </div>
-                            </span>
-
-                            <span th:if="${candidate.facebook} != null">
-                                <div class="social-links">
-                                    <a th:href="@{${candidate.facebook}}" target="_blank"><i class="fa fa-facebook fa-lg"></i></a>
-                                </div>
-                            </span>
-
-                            <span th:if="${candidate.twitter} != null">
-                                <div class="social-links">
-                                    <a th:href="@{${candidate.twitter}}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a>
-                                </div>
-                            </span>
+                            <div class="social-links">
+                                <span th:if="${candidate.website} != null"><a th:href="@{${candidate.website}}" target="_blank"><i class="fa fa-laptop fa-lg"></i></a></span>
+                                <span th:if="${candidate.facebook} != null"><a th:href="@{${candidate.facebook}}" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></span>
+                                <span th:if="${candidate.twitter} != null"><a th:href="@{${candidate.twitter}}" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></span>
+                            </div>
                         </td>
                     </tr>
 
