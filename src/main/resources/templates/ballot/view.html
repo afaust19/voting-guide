@@ -18,13 +18,13 @@
                 <div class="row">
                    <th>
                         <div class="col-6">
-                            <label th:for="mayoralCandidateId">Mayor</label>
+                            <label th:for="mayoralCandidateId">Mayor</label>  <!--move up-->
                         </div>
                    </th>
                     <td>
                         <div class="col-6">
                             <select class="form-control"
-                                    th:name="mayoralCandidateId"
+                                    th:name="candidateId"
                                     th:field="*{candidates}">
                                 <option th:each="candidate : *{candidates}"
                                         th:if="${candidate.office} == 'mayor'"
